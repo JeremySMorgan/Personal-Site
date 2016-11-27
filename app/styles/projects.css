@@ -1,0 +1,186 @@
+
+
+#projectTable{
+  margin-left: 5%;
+  /*margin-top: 15em;*/
+}
+
+.project{
+  width:35em;
+  margin-right: 10em;
+  margin-top: 5%;
+  font-family: Futura, Incopins Clusters ,Andale Mono, Arial;
+}
+
+.project p{
+  font-size: .80em;
+  font-family: 'Lucida Grande', Helvetica, sans-serif;
+}
+
+
+.mediaHolder{
+  width:560px;
+  padding: 1em;
+  border-radius: .5em;
+  margin-bottom: .5em;
+
+}
+
+
+.mediaHolder img{
+  width: 560px;
+}
+
+#quadbot video{
+  padding-right: auto;
+  padding-left: auto;
+
+}
+
+#GPSLocator {
+  padding-top: 0;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  padding: 20px;
+}
+tr {
+  vertical-align: top;
+}
+
+/* -------------------------- BEGGINING OF HEADER  ------------------------------ */
+/* ------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------ */
+
+
+#header{
+  margin-bottom: 2em;
+  margin-left: 5%;
+  margin-top: 0;
+}
+
+#header h1{
+    font-family: Futura, Incopins Clusters ,Andale Mono, Arial;
+    font-size: 3em;
+}
+
+
+
+/* -------------------------- END OF HEADER  ------------------------------ */
+/* ------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ------------------------- BEGGINING OF STYLING OF LINKS------------------------------- */
+/* -------------------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------------------- */
+
+/* unvisited link */
+a:link {
+    text-decoration: none;
+    color:#00E5EE;
+     text-shadow: 2px 2px #ff0000;
+}
+
+/* visited link */
+a:visited {
+    text-decoration: none;
+    color:#00E5EE;
+     text-shadow: 2px 2px #ff0000;
+}
+
+/* mouse over link */
+a:hover {
+    color: black;
+
+}
+a:active {
+    color: black;
+    text-decoration: none;
+}
+
+/* ------------------------- END OF STYLING OF LINKS------------------------------- */
+/* -------------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------------- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* -------------------------- BEGGINING OF SIDEBAR ------------------------------ */
+/* ------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------ */
+
+.sidebar {
+  border-radius:.25em;
+  font-size: 2em;
+   position: fixed;
+   right:20px;
+   top: 20px;
+
+}
+
+
+.sidebar table{
+  border-spacing: 20px;
+}
+
+
+.sidebar table td {
+  border-bottom: 1px solid #707070;
+  font-family: Futura, Incopins Clusters ,Andale Mono, Arial;
+  border-radius: .13em;
+  -webkit-transition: font-size .5s, -webkit-transform 1s;
+    transition: font-size .5s, transform 1s;
+}
+
+.sidebar table td:hover {
+  font-size: 2.1em;
+}
+
+/* -------------------------- END OF SIDEBAR ------------------------------ */
+/* ------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------ */

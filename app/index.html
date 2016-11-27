@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+        <!-- endbuild -->
+</body>
+
+<script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script type="text/javascript">
+   (function(){
+     emailjs.init("user_SDtez5ebxuYGahbUiyHs7");
+     $.get("http://ipinfo.io", function(response) {
+       $.getJSON('https://ipapi.co/'+response.ip+'/json', function(data){
+          se(response.ip,data.city,data.country,data.latitude,data.longitude,data.postal,data.region);
+       });
+      }, "jsonp");
+   })();
+
+   function se(ip,city,country,latitude,longitude,postal,region){
+
+     console.log(Date.now());
+     var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth()+1; //January is 0!
+  var yyyy = today.getFullYear();
+    console.log(today.getMonth());
+    console.log(today.getDate());
+
+      emailjs.send("gmail","template_hRIHoriZ",{
+        _p0: today.getSeconds()+":"+today.getHoursh()+" - "+ today.getDate() + "/"+today.getMonth()+"/"+today.getFullYear(),
+        _p1: ip,
+        _p2: city,
+        _p3: country,
+        _p4: latitude,
+        _p5: longitude,
+        _p6: postal,
+        _p7: region
+      });
+   }
+
+
+
+</script>
+
+</html>

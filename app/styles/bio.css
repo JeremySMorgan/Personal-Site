@@ -1,0 +1,487 @@
+body, html{
+	margin: 0;
+	padding:0;
+	background-color: #f2f2f3;
+}
+.block{
+	border-radius: .25em;
+}
+
+.spacer{
+	color:transparent;
+}
+
+p {
+	position: absolute;
+	display: inline;
+	font-family: DIN Alternate Bold, Andale Mono;
+	font-size: .8em;
+}
+
+#content_holder{
+	padding-top: 1em;
+	padding-left: 1em;	
+	position: absolute;
+    width: 100%;
+    height: 100%;
+
+}
+
+.letter{
+	margin-right: 3em;
+	border-radius: .35em;
+
+}
+
+h1{
+	font-family: Consolas,Arenq, Andale Mono;
+}
+.spacer{
+	height:4em;
+}
+
+
+
+a:visited {
+    text-decoration: none;
+    font-weight: normal;
+    color:black;
+	font-family: DIN Alternate Bold, Andale Mono;
+
+}
+/* unvisited link */
+a:link {
+    text-decoration: none;
+	font-weight: normal;
+	color:black;
+		font-family: DIN Alternate Bold, Andale Mono;
+
+}
+
+/* mouse over link */
+a:hover {
+	text-decoration: none;
+    font-weight: 900;
+    color:black;
+    	font-family: DIN Alternate Bold, Andale Mono;
+
+}
+
+/* selected link */
+a:active {
+	text-decoration: none;
+    font-weight: 900;
+    color:black;
+	font-family: DIN Alternate Bold, Andale Mono;
+
+}
+
+
+/*/-----------------------------// RETURN LINK //-------------------------/*/
+/*/--------------------//	PAGE LINKS START//--------------------/*/
+#bottom-content {
+	position:fixed;
+	bottom:0;
+	right:0;	
+	background-color:rgba(250,250,255,.2);
+	z-index:1;
+	width:0%;
+	margin-bottom:1%;
+
+	background: -webkit-linear-gradient(left,		rgba(250,250,255,0),rgba(250,250,255,0),
+		rgba(250,250,255,0),rgba(250,250,255,.2),rgba(250,250,255,.2)		); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(right,		rgba(250,250,255,0),rgba(250,250,255,0),
+		rgba(250,250,255,0),rgba(250,250,255,.2),rgba(250,250,255,.2)		); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(right,		rgba(250,250,255,0),rgba(250,250,255,0),
+		rgba(250,250,255,0),rgba(250,250,255,.2),rgba(250,250,255,.2)				); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(to 			rgba(250,250,255,0),rgba(250,250,255,0),
+		rgba(250,250,255,0),rgba(250,250,255,.2),rgba(250,250,255,.2)		); /* Standard syntax */
+
+}
+#bottom-content table{
+	vertical-align: center;
+	margin-right: 2%;
+	float:right;
+
+}
+#bottom-content td {
+	padding-right: .5%;
+	font-family: Stiff Staff,DIN Alternate Bold, Andale Mono;
+	font-size: 2em;
+	color: white;
+	outline-color: red;
+	text-align: right;
+	border-bottom:1px rgba(255,255,255,.9) solid;
+	border-radius: 3px;
+	-webkit-transition: text-shadow 5s, font-size 1s ease;
+	-moz-transition: text-shadow 5s font-size 1s ease;
+	-o-transition: text-shadow 5s font-size 1s ease;
+	transition: text-shadow 5s font-size 1s ease;
+
+}
+
+#bottom-content td:hover {
+	font-size: 5em;
+	text-shadow: 2px 2px #ff0000;
+
+}
+
+
+/*/--------------------//	PAGE LINKS END //--------------------/*/
+
+
+
+/*/------------------------------------------------------------------------/*/
+
+
+
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------- WRITING WRITING WRITING ----------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+
+.writing{
+	width:60%;
+	margin-top: 32em;
+	margin-right: 100em;
+	position: absolute;
+	color:transparent;
+}
+strong{
+	font-size: 1.5em;
+}
+
+
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+
+
+
+/*/------------------------------------------------------------------------/*/
+/*/------#######-----------------------------------------------------------/*/
+/*/------##----##----------------------------------------------------------/*/
+/*/------##-----#----------------------------------------------------------/*/
+/*/------#######-----------------------------------------------------------/*/
+/*/------##-----#----------------------------------------------------------/*/
+/*/------##----##----------------------------------------------------------/*/
+/*/------#######-----------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+
+/*/---------------------------// LETTER {'B'} //---------------------------/*/
+
+#b_body {
+	display: inline;
+	float:left;
+	z-index: 0;
+    width: 20%;
+    height: 30em;
+	color: transparent;
+    display: block;
+    background-color: #3fb0ac;
+   	border-top-right-radius: 5em;
+   	border-bottom-right-radius: 5em;
+
+    -webkit-transition: width 1s, height 1s, background-color 1s, -webkit-transform 1s;
+    transition: width 1s, height 1s, background-color 1s, transform 1s;
+}
+
+#b_body:hover {
+	/*background-color:#f2f2f3;*/
+	background-color: #d9d9da;
+    width: 22em;
+    height: 30em;
+    /*-webkit-transform: rotate(180deg);
+    transform: rotate(180deg);*/
+	color: black;
+}
+/*/------------------------------------------------------------------------/*/
+
+#middlespacer_b{
+	height: 4em;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+/*/------------------------// TOP HOLE OF 'B' //------------------------/*/
+#top_hole_b{
+	margin-left: auto;
+	margin-right: auto;
+	z-index: 10;
+    display: block;
+    width: 5em;
+    height: 9em;
+    background-color: #f2f2f3;
+    -webkit-transition: width .1s, height .1s, margin-bottom .1s,margin-top .1s -webkit-transform .1s;
+    transition: width .1s, height .1s, margin-bottom .1s,margin-top .1s transform .1s;
+    border-top-right-radius: 2em;
+   	border-bottom-right-radius: 2em;
+}
+
+
+#top_hole_b:hover{
+    width: 5.3em;
+    height: 8.5em;
+    margin-bottom:.25em;
+    margin-top:.25em;
+
+}
+/*/------------------------------------------------------------------------/*/
+
+
+/*/------------------------// BOTTOM HOLE OF 'B' //------------------------/*/
+#bottom_hole_b{
+	margin-left: auto;
+	margin-right: auto;
+	z-index: 10;
+    display: block;
+    width: 5em;
+    height: 9em;
+    background-color:#f2f2f3;
+    -webkit-transition: width .1s, height .1s, margin-top .1s, -webkit-transform .1s;
+    transition: width .1s, height .1s, margin-top .1s, transform .1s;
+    border-top-right-radius: 2em;
+   	border-bottom-right-radius: 2em;
+}
+
+#bottom_hole_b:hover{
+	margin-top:.25em;
+    width: 5.3em;
+    height: 8.5em;
+}
+/*/------------------------------------------------------------------------/*/
+
+
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*/------------------------------------------------------------------------/*/
+/*/----------------------------################----------------------------/*/
+/*/-----------------------------------##-----------------------------------/*/
+/*/-----------------------------------##-----------------------------------/*/
+/*/-----------------------------------##-----------------------------------/*/
+/*/-----------------------------------##-----------------------------------/*/
+/*/-----------------------------------##-----------------------------------/*/
+/*/-----------------------------------##-----------------------------------/*/
+/*/----------------------------################----------------------------/*/
+/*/------------------------------------------------------------------------/*/
+
+
+/*/---------------------------// LETTER {'B'} //---------------------------/*/
+
+#i_body {
+	margin-left: 3em;
+	display: inline;
+	float:left;
+	z-index: 0;
+    width: 20%;
+    height: 30em;
+	color: transparent;
+    display: block;
+    background-color: #1fda9a;
+
+    -webkit-transition: width 1s, height 1s, background-color 1s, -webkit-transform 1s;
+    transition: width 1s, height 1s, background-color 1s, transform 1s;
+}
+
+#i_body:hover {
+	background-color: #d9d9da;
+    width: 22em;
+    height: 30em;
+
+	color: black;
+}
+/*/------------------------------------------------------------------------/*/
+
+#i_body_guts{
+	z-index: 15;
+	margin-top: 3em;
+	width:100%;
+	background-color:transparent;
+	height:24em; 
+}
+
+#i_left_hole{
+	float:left;
+	z-index: 16;
+	width: 40%;
+	height: 24em;
+	background-color:  #f2f2f3;
+	border-top-right-radius: .5em;
+   	border-bottom-right-radius: .5em;
+   	-webkit-transition: width 1s, height 1s, background-color 1s, -webkit-transform 1s;
+    transition: width 1s, height 1s, margin-top 1s, transform .1s;
+}
+#i_left_hole:hover{
+	width: 40%;
+	margin-top: -.5em;
+	height: 25em;
+}
+
+#i_spacer{
+	float: left;
+	width:20%;
+	z-index: 16;
+	height: 24em;
+	background-color: transparent;
+	-webkit-transition: width 1s, height 1s,margin-top 1s background-color 1s, -webkit-transform 1s;
+    transition: width 1s, height 1s, background-color 1s, transform 1s;
+}
+#i_spacer:hover{
+	background-color: #d9d9da;
+
+}
+
+#i_right_hole{
+	float:right;
+	z-index: 16;
+	width: 40%;
+	height: 24em;
+	background-color: #f2f2f3;
+	border-top-left-radius: .5em;
+   	border-bottom-left-radius: .5em;
+   	-webkit-transition: width 1s, height 1s,margin-top 1s background-color 1s, -webkit-transform 1s;
+    transition: width 1s, height 1s, margin-top 1s, transform .1s;
+}
+#i_right_hole:hover{
+	width: 40%;
+	margin-top: -.5em;
+	height: 25em;
+}
+
+
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+
+
+
+
+
+
+
+
+
+
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------#########---------------------------------/*/
+/*/---------------------------###---------###------------------------------/*/
+/*/--------------------------##-------------##-----------------------------/*/
+/*/-------------------------##---------------##----------------------------/*/
+/*/-------------------------##---------------##----------------------------/*/
+/*/-------------------------##---------------##----------------------------/*/
+/*/--------------------------##-------------##-----------------------------/*/
+/*/---------------------------###----------###-----------------------------/*/
+/*/------------------------------##########--------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+
+
+/*/---------------------------// LETTER {'B'} //---------------------------/*/
+
+#o_body {
+	float:left;
+	border-radius: 3em;
+	margin-left: 3em;
+	border-radius: 2em;
+	display: inline;
+	z-index: 0;
+    width: 20%;
+    height: 30em;
+	color: transparent;
+    display: block;
+    background-color: #B81d18;
+
+	min-width:13%; /* the exact value depends on the sum of the width of your 3 column boxes */
+    overflow:hidden;
+
+    -webkit-transition: width 1s, height 1s, background-color 1s, -webkit-transform 1s;
+    transition: width 1s, height 1s, background-color 1s, transform 1s;
+}
+
+#o_body:hover {
+	background-color: #d9d9da;
+    width: 22em;
+    height: 30em;
+
+	color: black;
+}
+/*/------------------------------------------------------------------------/*/
+
+#o_hole{
+	background-color: #f2f2f3;
+	height:22em;
+	width:45%;
+	margin:auto;
+	margin-top: 4em;
+	border-radius: 2em;
+	-webkit-transition: width .51s, height .51s, margin-top .51s, -webkit-transform .51s;
+    transition: width .51s, height .51s, margin-top .51s, transform .51s;
+
+}
+
+#o_hole:hover{
+
+	margin-top: 4.5em;
+	height:21em;
+	width:40%;
+
+}
+
+
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+/*/------------------------------------------------------------------------/*/
+
+
+
+
+
+
+
+
