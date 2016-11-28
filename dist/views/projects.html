@@ -1,0 +1,230 @@
+<link rel = "stylesheet" type = "text/css" href = "./styles/projects.css" />
+
+<script>
+	$(function(){
+		$("#page-wrap").wrapInner("<table cellspacing='30'><tr>");
+		$(".post").wrap("<td>");
+	});
+</script>
+
+<body onload="preload()">
+
+		<div class='sidebar'>
+			<table>
+				<tr>
+					<td><a href="/#/">Home</a></td>              <td>
+					                &nbsp;
+					              </td>
+					<!--<td><a href="/#/media">Media</a></td>-->
+					<td><a href="/#/art">Art</a></td>              <td>
+					                &nbsp;
+					              </td>
+					<td><a href="/#/contact">Contact</a></td>
+
+					    <!---
+					    home - /#/
+					    projects - /#/projects
+					    media - /#/media
+					    art - /#/art
+					    contact - /#/contact
+					    -->
+
+				</tr>
+			</table>
+		</div>
+
+
+	<div id="header">
+		<h1> Projects </h1>
+	</div>
+
+	<div id="mainContainer">
+
+
+		<div id="projectTable">
+<table>
+
+	<td>
+		<div id="thermal" class="project">
+
+			<h2> Quadbot 2</h2>
+			<br />
+			<iframe width="560" height="315" src="https://www.youtube.com/embed/f88fr15Ik9s" frameborder="0" allowfullscreen></iframe>
+			<br /><br>
+				<p>
+					<i>February 2016</i> 
+					Quabot 2 is finished.
+				</p>
+
+			</div>
+		</td>
+
+
+
+
+	<td>
+		<div id="thermal" class="project">
+
+			<h2> Thermal Imaging Camera </h2>
+			<br />
+<iframe width="420" height="315" src="https://www.youtube.com/embed/djglfbDbr38" frameborder="0" allowfullscreen></iframe>
+			<br /><br>
+				<p>
+					<i>February 2016</i> - This is the beginning of my most ambitious project so far; to create 'thermal reality' i.e. live thermal imaging video on a virtual reality headset. As of now, I’m using the Lepton thermal breakout chip along with a Raspberry Pi 2+ to stream directly to the Pi. Eventually I plan to use some of the Raspberry Pi <-> VR software to send the data to a VR headset instead. Stay posted because this should be fun. <br>
+This project is funded by friends down at the <a href="http://www.photonicbliss.com/">Photonic Bliss</a> studio where I am doing R&D.
+
+				</p>
+
+			</div>
+		</td>
+
+
+
+<td>
+	<div id="ledmatrix" class="project">
+		<h2> LED Matrix V 1.0 </h2><br />
+<iframe width="560" height="315" src="https://www.youtube.com/embed/UrNdJE-w-Fo" frameborder="0" allowfullscreen></iframe>
+		<br /><br />
+			<p>
+				<i>January 2016</i> - Version 1.0 of my LED Matrix. This project contains three main parts: the first was building a webserver, the second was building a webapp to interface with the server, and the third was parsing the data sent by the web app and creating a mapping algorithm to accuratly display the data on the board.
+				<br> <strong>1) {Webserver} </strong> To build the webserver, I used a Teensy 3.1 microcontroller and a Wiz820 ethernet adapter. This is a relatively well documented process and was suprisingly easy.
+				<br> <strong>2) {Web App} </strong> I used my knowledge and background of building web applications to build the app. It uses HTML/CSS for design, and Javascript and Jquery for the functionality and the sending of the data.
+
+				<br> <strong>3) {Data Parsing + Mapping Alogrithm} </strong> The data parsing was honestly a pain in the neck, with numerous hastles like converting HEX to UTF, realizing POST requests fail with the hashtag character, and managing the undocumented discontinuities between C and Arduino C. Happy to report that the data parsing works beautifully. The Mapping Algorithm proved suprisingly fun to build. Similar to the javascript experiment on page 4 of this site, the mapping algorithm required sitting down with a pad of paper and applying mathmatical concepts, which was very fun.
+
+
+				<br>
+				This project is visually attractive and its interactivity is great. It will be more dynamic upon further revisions with such features as a ripple stimulator, physics engine, and maybe some games (Pong anyone?) That would be great. The point is that it’s cool now and tI now have a foundation for more advanced projects.
+
+			</p>
+
+		</div>
+	</td>
+
+
+
+
+<td>
+	<div id="GPSLocator" class = "project">
+
+	<h2> Quadbot 2</h2>
+<br />
+<iframe width="560" height="315" src="https://www.youtube.com/embed/LXVWMAhUlK0" frameborder="0" allowfullscreen></iframe>
+<br><br>
+	<p>
+Version 2 of my Quadbot. This next-gen model uses real time satellite data, Bayesian based  computer vision, and 3D acceleration data to navigate unfamiliar and unpredictable terrain- no just kidding ( not yet! ). <br> Version two has much greater stability and balance than the previous model, however it still is having trouble walking. Largely due to the flexibility of the acrylic, moving is proving difficult due to shaking and support issues. While I am facing trouble, the programming is coming along, and I’m expecting a walking model soon!
+
+	</p>
+
+	</div>
+</td>
+
+
+
+
+
+
+
+
+<td>
+<div id="quadbot" class="project">
+
+<h2> Quadbot</h2>
+<br>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1_zL-UDK1bc" frameborder="0" allowfullscreen></iframe>
+<br><br>
+<p> During my time at the Rose-Hulman Institute of Technology, I designed, built, assembled, wired and programmed this robot. It is controlled by an Arduino Uno with a Servo Shield which powers its 8 servos (2 servos per leg). It recieves user input through a wireless Ps2 remote. <br><br>
+
+The first design- version 1.0, was initially intended to mimick a spider (a four legged spider actually), and was to have three servos on each leg. Version 1.0 was not successful. Its legs were too long, and its connections unsecure which created a multitude of stablilty and balance issues, which led me to redesign the robot. The redesigned version 1.1 model, which is filmed above, was successful in terms of its balance and stability, however it ended up being slow and inefficient. Nonetheless, it  was gratifying to see it can walk around. <br> <br>
+
+I am currently creating a version 1.3 model, which will incorporate the spider-like design of the first model, and the stability of the second model. I plan to complete the version 1.3 model by September 15.
+
+</p>
+
+</div>
+</td>
+
+
+
+
+
+<td>
+<div id="GPSLocator" class = "project">
+
+<h2> GPS Locator </h2>
+
+<div class= "mediaHolder">
+<img src="./images/GPSLocator.jpg"/>
+</div>
+
+<p> The GPS Locator is a small project which uses a GPS chip, a LCD display, two LED's, and an Arduino Uno to print ones Longtitude and Latitude Coordinates. The LEDs are used to display whether or not the GPS chip has found a connection with the orbiting satalites. The project took about an hour, and is a fun addition to my creations. <br><br>
+In the future, I plan on turning this project into an Arduino-compatible shield for greater ease of use. Addtionally, I am working on incorporating a SD Card reader, so that a user could flip a switch to make the Arduino record its Lat. and Long. coordinates.</p>
+
+</div>
+</td>
+
+
+
+
+<td>
+	<div id="arduinoVGA" class="project">
+
+	<h2> VGA Moniter </h2>
+	<br/>
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/2mriz1IFPqI" frameborder="0" allowfullscreen></iframe>
+			<br/>		<br/>
+		<p>This project stated on a Saturday morning. The previous day, when walking home, I had picked up an old Computer Moniter that someonw had ditched on the sidewalk thinking<i> theres got to be something I can do with this!</i> and in my sleep, I had a dream where I had hooked up an Arduino to it to make a video game. Upon light research online, I found that someone had actually done this already, and even created a library so that others (like me!) could do it themselves. <br><br> Upon buying a breadboard compatable VGA adapter, doing some soldering and wiring, installing the library, and doing some minor programming, my Moniter came to life! It was an exciting an surprisingly easy project which came out well. <br><br> The biggest problem that I faced was the lack of computing power onboard the Aruino. When trying to create elaborate designs (such as a clock or video game), the program would not run because the Arduino did not have enough memory and/or proccessing speed. In order to increase the capabilities of the Aruino, I used two, and through a Serial Peripheral Interface (SPI) connection, I was able to create more complex graphics, by using one Arduino to perform calculations and recieve input, and the other to print to the screen. <br><br> In the future, I would like to recreate this project with a Rasberry Pi in order to create more advanced graphics.
+		</p>
+	</div>
+</td>
+
+
+
+
+<td>
+	<div id="LEDBookLight" class = "project">
+		<h2> LED Booklight </h2><br/>
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/z0ttShU-QYU" frameborder="0" allowfullscreen></iframe>
+		<br /><br>
+		<p>
+		This is a fun lil' project, which uses a couple light switches and an LED reel to make a 'reading' light, although its not actually a very plesent reading light. Its a pretty simple idea, however carving the book out turned out to be quite a hassle. It looks great and works well. I plan on installing the third lght switch when I have some free time so that the LED can shine blue aswell. <br><br>On a side note, I find it rather funny that even though this project only required the abilities to solder and cut a book open, typically when people see it, there are just as, if not more impressed than I show them something which requires far more extensive and advanced skill sets, such as building a Robotic Arm or making a rocket.
+		</p>
+	</div>
+</td>
+
+
+
+
+<td>
+<div id="roboticArm" class = "project" >
+<h2> Robotic Arm </h2>
+<br>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Qm-Ij6kP5rE" frameborder="0" allowfullscreen></iframe>
+<br><br>
+
+</div>
+
+
+<p> The Robotic arm incorporated a wide range of skill sets, such as design, prototyping, cardboard construction (my favorite!), electrical engineering, programming, and motor control. The biggest challenge for me was powering the servos, which would often have massive current peaks that would short out the Arduino. These current loads fried 2 servos until I started using voltage limitars, diodes, and capacitors to provide smooth and even power, wven with 2 amp spikes. But enough jargon.<br> <br> I plan on rebuilding the arm with laser cut acrylic to increase both the stability, rigidness, and the asthetics of the arm. I expect to have the rebuilt model by the end of Augest (2015).
+
+
+
+</div>
+</td>
+
+
+</tr>
+
+
+			</table>
+		</div>
+
+
+
+
+	</div>
+
+
+
+
+</body>

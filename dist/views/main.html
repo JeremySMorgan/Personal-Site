@@ -1,0 +1,91 @@
+<body>
+
+    <link rel="stylesheet" type="text/css" href="./styles/index.css">
+    <script src="./scripts/main.js"></script>
+
+		<div id='page-background'>
+			<img src="./images/sf.jpg" id="bg" alt=""width="100%" height="100%">
+		</div>
+
+		<div id="intro">
+      <h5> This website was handcrafted with the power of organic kale, stack overflow, and my Friday nights right here in lovely Berkeley, CA !	</h5>
+		</div>
+
+		<style type="text/css">
+			#intro{
+				font-family: DIN Alternate Bold, Andale Mono;
+				z-index: 999;
+				position: absolute;
+				top:0;
+				left:0;
+				background-color: aqua;
+				width:15em;
+				border-bottom: 1px solid red;
+				border: 1px solid red;
+				margin-top: 2%;
+				margin-left:2%;
+			}
+			#intro h5{
+				padding-right: 10%;
+				padding-left: 10%;
+
+			}
+		</style>
+		<script type="text/javascript">
+      //('#intro').fadeOut(10000);
+		</script>
+
+
+		<div id="top-content">
+			<a href="#" class="button indianred" id="welcome_sign">
+				<h1 id="welcome">
+					WELCOME
+				</h1>
+			</a>
+			<div class="bridge"id="p1" onmouseover=" "onmouseout=" "></div>
+		</div>
+
+
+		<div id="bottom-content">
+			<table cellspacing="23">
+				<tr>
+
+					<td onmouseover="changeImg(); greetingOn()"
+						onmouseout="revertImg(); greetingOff()">
+						<a href="/#/projects">Projects</a></td>
+            <td>
+              &nbsp;
+            </td>
+					<!--<td
+					onmouseover="changeImg(); greetingOn()"
+					onmouseout="greetingOff();revertImg() ">
+						<a href="/#/media"> Media</a>  </td>
+-->
+						<td
+						onmouseover="changeImg(); greetingOn()"
+						onmouseout="greetingOff();revertImg() ">
+							<a href="/#/art"> Art</a>  </td>
+              <td>
+                &nbsp;
+              </td>
+
+              <td
+  						onmouseover="changeImg(); greetingOn()"
+  						onmouseout="greetingOff();revertImg() ">
+  							<a href="/#/contact"> Contact</a>  </td>
+
+
+                    <!---
+                    home - /#/
+                    projects - /#/projects
+                    media - /#/media
+                    art - /#/art
+                    contact - /#/contact
+                    -->
+
+
+				</tr>
+			</table>
+		</div>
+
+	</body>

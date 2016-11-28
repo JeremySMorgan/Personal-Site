@@ -9,7 +9,7 @@
 
 	#categories{
   overflow:hidden;
-  /*width:90%;*/
+  /*width:90%;*/ 
   width:80%;
   margin:0 auto;
 }
@@ -27,7 +27,7 @@
   float:left;
   overflow:hidden;
   visibility:hidden;
- 
+
   -webkit-transform: rotate(-60deg) skewY(30deg);
   -ms-transform: rotate(-60deg) skewY(30deg);
   transform: rotate(-60deg) skewY(30deg);
@@ -41,7 +41,7 @@
 #categories li:nth-child(6n+4), #categories li:nth-child(6n+5), #categories li:nth-child(6n+6) {
 	margin-top: -6.9285714285%;
   margin-bottom: -6.9285714285%;
-  
+
   -webkit-transform: translateX(50%) rotate(-60deg) skewY(30deg);
   -ms-transform: translateX(50%) rotate(-60deg) skewY(30deg);
   transform: translateX(50%) rotate(-60deg) skewY(30deg);
@@ -59,30 +59,30 @@
   text-align:center;
   color:#fff;
   overflow:hidden;
-  
+
   -webkit-transform: skewY(-30deg) rotate(60deg);
   -ms-transform: skewY(-30deg) rotate(60deg);
   transform: skewY(-30deg) rotate(60deg);
-  
+
 	-webkit-backface-visibility:hidden;
-  
+
 }
 
 /* HEX CONTENT */
 #categories li img{
   left:-100%; right:-100%;
   width: auto; height:100%;
-  margin:0 auto;   
+  margin:0 auto;
 }
 
 #categories div h1, #categories div p{
   width:90%;
   padding:0 5%;
-  
+
   background-color: rgba(128, 128, 128, .9);
 
   font-family: DIN Alternate Bold, Andale Mono;
-  
+
   -webkit-transition: top .2s ease-out, bottom .2s ease-out, .2s padding .2s ease-out;
   -ms-transition: top .2s ease-out, bottom .2s ease-out, .2s padding .2s ease-out;
   transition: top .2s ease-out, bottom .2s ease-out, .2s padding .2s ease-out;

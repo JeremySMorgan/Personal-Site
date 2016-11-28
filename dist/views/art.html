@@ -1,0 +1,172 @@
+
+<link href="./styles/simple-sidebar.css" rel="stylesheet">
+<link rel="stylesheet" href="./styles/art.css" media="screen" title="no title" charset="utf-8">
+<link rel="stylesheet" href="./styles/nouislider.css" media="screen" title="no title" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="./styles/bootstrap.css">
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav list-group">
+
+                <h2>&nbsp;options</h2>
+
+                <li class="list-group-item text-center">
+                  {pathTimeDelay}  <div type="range" id="pathTimeDelay" class="noUi-target noUi-ltr noUi-horizontal noUi-background"></div>
+                </li>
+
+                <li class="list-group-item text-center">
+                  {timeSmallCircleDelay}<div type="range" id="timeSmallCircleDelay"class="noUi-target noUi-ltr noUi-horizontal noUi-background"></div>
+                </li>
+
+                <li class="list-group-item text-center">
+                  {radius}<div type="range"  id="radius"class="noUi-target noUi-ltr noUi-horizontal noUi-background"></div>
+                </li>
+
+                <li class="list-group-item text-center">
+                  {largeRadius}<div type="range"  id="largeRadius"class="noUi-target noUi-ltr noUi-horizontal noUi-background"></div>
+                </li>
+
+                <li class="list-group-item text-center">
+                  {rChange = false}<br><input type="checkbox" id="rChange">
+                </li>
+
+                <li class="list-group-item text-center">
+                  {gChange = false}<br>
+                  <input type="checkbox" id="gChange">
+                </li>
+
+                <li class="list-group-item text-center">
+                {bChange = false}<br>
+                  <input type="checkbox" id="bChange">
+                </li>
+
+                <li class="list-group-item text-center">
+                  {xToCirclePathConstant}
+                  <div type="range" id="xToCirclePathConstant"class="noUi-target noUi-ltr noUi-horizontal noUi-background"></div>
+                </li>
+
+                <li class="list-group-item text-center">
+                  {yTocirclePathConstant}
+                  <div type="range"  id="yTocirclePathConstant"class="noUi-target noUi-ltr noUi-horizontal noUi-background"></div>
+                </li>
+
+                <li class="list-group-item text-center">
+                  {xFromCirclePathConstant}
+                  <div type="range"  id="xFromCirclePathConstant" class="noUi-target noUi-ltr noUi-horizontal noUi-background"></div>
+                </li>
+
+                <li class="list-group-item text-center">
+                  {yFromcirclePathConstant}
+                  <div type="range" id="yFromcirclePathConstant" class="noUi-target noUi-ltr noUi-horizontal noUi-background"></div>
+                </li>
+
+                <li class="list-group-item text-center">
+                  <button id="start">start</button>
+                  <button id="stop">stop</button>
+                </li>
+            </ul>
+        </div>
+
+
+
+
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+
+              <div class="row">
+                <div class="col-mid-1">
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                </div>
+                <div class="col-mid-11">
+                    <canvas id="canvas"></canvas>
+                </div>
+              </div>
+
+
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+        <div class='sidebar'>
+          <style media="screen">
+
+          .sidebar {
+            border-radius:.25em;
+            font-size: 2em;
+             position: fixed;
+             right:20px;
+             top: 20px;
+          }
+          .sidebar table{
+            border-spacing: 20px;
+          }
+
+
+          .sidebar table td {
+            border-bottom: 1px solid #707070;
+            font-family: Futura, Incopins Clusters ,Andale Mono, Arial;
+            border-radius: .13em;
+            -webkit-transition: font-size .5s, -webkit-transform 1s;
+              transition: font-size .5s, transform 1s;
+          }
+
+          .sidebar table td:hover {
+            font-size: 2.1em;
+          }
+
+          </style>
+
+          <table>
+            <tr>
+              <td><a href="/#/">Home</a></td>              <td>
+                              &nbsp;
+                            </td>
+              <td><a href="/#/projects">Projects</a></td>              <td>
+                              &nbsp;
+                            </td>
+          <!--    <td><a href="/#/media">Media</a></td>-->
+              <td><a href="/#/contact">Contact</a></td>
+
+                  <!---
+                  home - /#/
+                  projects - /#/projects
+                  media - /#/media
+                  art - /#/art
+                  contact - /#/contact
+                  -->
+            </tr>
+          </table>
+        </div>
+
+
+
+
+
+
+
+    </div>
+
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
+
+    <script type="text/javascript" src="./scripts/nouislider.js"></script>
+    <script type="text/javascript" src="./scripts/ArtSetup.js"></script>
+    <script type="text/javascript" src="./scripts/ArtMain.js"></script>
+
+</body>
+
+</html>
