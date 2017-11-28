@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome file</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="jpl-robosimian-quadruped-robot-gait-development">JPL Robosimian Quadruped Robot Gait Development</h1>
+<h2 id="overview">Overview</h2>
+<p>This is a project to build a robust stable walking gait for <a href="https://www.jpl.nasa.gov/news/news.php?feature=4603">JPL’s Robosimian quadruped robot</a> to allow operators to control the robot in real time. This goal will be achieved by completing two main tasks:</p>
+<ol>
+<li>the creation of a stable forward and sideways gait, as well as a reset algorithm capable of maintaing stablility in all known input states.</li>
+<li>This optimization of the created model through machine learning techniques</li>
+</ol>
+<p>The gait uses  <a href="http://motion.pratt.duke.edu/klampt/">Klamp’t</a> for simulation, inverse kinematics, and physical modeling. This work is being done under Kris Hausers’ <a href="http://motion.pratt.duke.edu/home.html">Intelligent Motion Laboratory</a> at Duke University. Supporting code can be found at my <a href="https://github.com/JeremySMorgan/robosimian-gait-development">github</a></p>
+<h2 id="forward-gait">Forward Gait</h2>
+<p>I have used the Creep Gait <a href="https://books.google.com/books?id=6NFe-_OfliUC&amp;pg=PA299&amp;lpg=PA298&amp;dq=robotics%20Creep%20stability&amp;source=bl&amp;ots=TZSu_Zej3N&amp;sig=TOZyxlSjzPjyvUfOOyFN98rY1EI&amp;hl=en&amp;sa=X&amp;ved=0ahUKEwjznKrUj-DXAhUFHGMKHX92CNgQ6AEIRDAE#v=onepage&amp;q&amp;f=false">'as described in Appin Sol’s book ‘Robotics’</a>. This is an ideal gait as it guarantees stability at all points in the stride. This is ensured be having the center of mass inside the support triangle formed by the three feet on the ground at all times. The drawbacks to this stride are that it is both slow and inefficient when compared to a dynamic stride, such as that of a running cheetah or other quadruped.</p>
+<p>My gait currently follows the following pattern: (the program assumes the robot forms its base state at the beggining of the walk)</p>
+<ol>
+<li>Shift torso forward and to the left</li>
+<li>back right leg step to base state definied by torso’s current position</li>
+<li>front right leg step to base state definied by torso’s future base position after movement</li>
+<li>shift torso to next position</li>
+<li>make back left leg step to current torso position</li>
+<li>move front left leg to base state position</li>
+</ol>
+<h2 id="appendix">Appendix</h2>
+<p>Finished Gait (ODE physics engine disabled)</p>
+<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/s_KDVGaFGgs?rel=0"></iframe>
+<p>Original Gaite ( non stable, ODE physics engine disabled)</p>
+<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/yeAvKYfvZMc?rel=0"></iframe>
+<p>Reset Stage 1
+<img src="https://github.com/JeremySMorgan/robosimian-gait-development/blob/master/torso_stage_1.png?raw=true" alt="Reset Stage 1"></p>
+<p>Reset Stage 2
+<img src="https://github.com/JeremySMorgan/robosimian-gait-development/blob/master/reset_stage_2.png?raw=true" alt="Reset Stage 1"></p>
+</div>
+</body>
+
+</html>

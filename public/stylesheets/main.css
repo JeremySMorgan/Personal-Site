@@ -25,3 +25,7 @@
     .jumbotron .lang-logo img {
       max-width: 100%; }
 
+
+      .thumbnail{
+        margin: .5em .5em .5em .5em;
+      }
