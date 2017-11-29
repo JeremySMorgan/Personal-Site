@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome file</title>
+  <title>Jeremy Morgan Personal Site</title>
   <link rel="stylesheet" href="https://stackedit.io/style.css" />
 </head>
 
@@ -17,6 +17,46 @@
 <li>This optimization of the created model through machine learning techniques</li>
 </ol>
 <p>The gait uses  <a href="http://motion.pratt.duke.edu/klampt/">Klamp’t</a> for simulation, inverse kinematics, and physical modeling. This work is being done under Kris Hausers’ <a href="http://motion.pratt.duke.edu/home.html">Intelligent Motion Laboratory</a> at Duke University. Supporting code can be found at my <a href="https://github.com/JeremySMorgan/robosimian-gait-development">github</a></p>
+<h2 id="software-design">Software Design</h2>
+<p>This projects software is broken into two distinct sections: <code>RobotSubSystems</code> and <code>Utilities</code>. Packages in each of these sections are run by the <code>Hypervisor</code> to control the robot.</p>
+<ol>
+<li><code>Hypervisor</code> starts and stops each robot subsystem. Entry way to either manual control or automated tests of the robot</li>
+<li><code>RobotSubSystems</code>. classes in this packages access the robot’s (and possibly the world’s) state to calculate trajectories, monitor the robot, ect. Files include:
+<ol>
+<li><code>HighLevelMotionController</code>. This is a multi-threaded classes which sends commands to the low level controller (provided by Klamp’t ) which is responsible for actual joint control. The control loop dequeues commands calculated by a sepperate thread which calculates on a plannning robot</li>
+<li><code>MotionPlanner</code> This is largely a helper class which provides the  <code>HighLevelMotionController</code> access to _2D Geometry objects, saves and retrieves the robots base state, and calculates  mid motion end affecter and torso positions and rotation matrices. This class also a number of s03 transformation helpers such as <code>get_desired_end_affector_rotation</code></li>
+<li><code>StabilityManager</code> This class monitors the robot for joint velocity and torque speed/values which exceed the maximum specified, as well as monitors for collisions between joints. Violations are passed to the <code>Hypervisor</code> to be handled by the <code>HighLevelMotionController</code></li>
+<li><code>ObjectiveManager</code> Reads desired robot state from <code>UserInput</code> and calls appropriate functions from the  <code>HighLevelMotionController</code></li>
+</ol>
+</li>
+<li><code>Utilities</code>
+<ol>
+<li><code>Logging</code> used to log messages from the program. Acts as a central gateway so that messages can be handled appropriately, and can be saved to disk if desired</li>
+<li><code>Math</code> used for custom math functions used throughout the program. one function is<code>angle_between_three_points</code></li>
+<li><code>MotionThread</code> is an abstraction of the native python <code>Thread</code> library. The wrapper provides easy access to determining if the thread should be kept alive or killed. Functionality to call methods with arguments is provided, including passing the MotionThread that a is being run by.</li>
+<li><code>RobotInspector</code> is used for debugging purposes such as translating the robot, and adding visualizations, ect.</li>
+<li><code>RobotConstants</code> stores app wide constants, such as step time, rotation degree, debugging levels, robot measurements ect.</li>
+<li><code>_2D_GeometryObjects</code> stores 2d geometry objects which include:
+<ol>
+<li><code>Vector</code> - stores n dimensional vectors and provides several functions including
+<ol>
+<li><code>multiple_vector_directions_are_equal(self, oVectors)</code></li>
+<li><code>vector_directions_are_equal(self, oVector)</code></li>
+</ol>
+</li>
+<li><code>_2DLegRadius</code> this is used to represent the range a torso can shift from a specified end affector</li>
+<li><code>_2DSupportPolygon</code> this is used to represent support triangles.</li>
+<li><code>UserInput</code> retrieves user input from either game controllers or keyboard input. game controller input is handled by <code>pygame</code>.</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="multithreading">Multithreading</h2>
+<p>Multithreading is used to allow different robot sub systems to run asynchronously. Communication is handled by passing classes to one another and having them call one another’s methods. For example the <code>ObjectiveManager</code> thread gets the desired movement from <code>UserInput</code> thread  by calling <code>UserInput.get_desired_robot_state</code>.</p>
+<p>This is not an ideal communication system as it requires a programmer to know how each class which is dependent on another works. This also creates scalability issues and makes replacing classes difficult. A superior communication system would be a message service like <code>redis</code> which would offer asynchronous message delivery throughout the robot systems.</p>
+<p>However for the scope of this project this is not needed, as there is very little data throughput between sub systems.</p>
+<p>Functions are typically passed the MotionThread object that they are being run by. After performing operations a function will check to see that its <code>MotionThread</code> is still alive. If it is, the function continues, otherwise the function will make necessary shutdown procedures and end.</p>
 <h2 id="forward-gait">Forward Gait</h2>
 <p>I have used the Creep Gait <a href="https://books.google.com/books?id=6NFe-_OfliUC&amp;pg=PA299&amp;lpg=PA298&amp;dq=robotics%20Creep%20stability&amp;source=bl&amp;ots=TZSu_Zej3N&amp;sig=TOZyxlSjzPjyvUfOOyFN98rY1EI&amp;hl=en&amp;sa=X&amp;ved=0ahUKEwjznKrUj-DXAhUFHGMKHX92CNgQ6AEIRDAE#v=onepage&amp;q&amp;f=false">'as described in Appin Sol’s book ‘Robotics’</a>. This is an ideal gait as it guarantees stability at all points in the stride. This is ensured be having the center of mass inside the support triangle formed by the three feet on the ground at all times. The drawbacks to this stride are that it is both slow and inefficient when compared to a dynamic stride, such as that of a running cheetah or other quadruped.</p>
 <p>My gait currently follows the following pattern: (the program assumes the robot forms its base state at the beggining of the walk)</p>
@@ -28,15 +68,65 @@
 <li>make back left leg step to current torso position</li>
 <li>move front left leg to base state position</li>
 </ol>
+<p>See Appendix for a video of this algorithm implemented</p>
+<h2 id="turning">Turning</h2>
+<p>I have developed my own turn gait, as inspired by J. Wei et al. which is described in their paper <a href="https://link.springer.com/content/pdf/10.1007/978-3-642-21402-8_56.pdf">'Gait and Stability Analysis of a Quadruped Robot '</a>.  Just like the forward gait, the torso must shift twice in order to stay inside a support triangle at all points in the maneuver. Additionally, it is necessary to calculate the distance that the torso can shift while a foot is fixed, so that the torso does not shift outside of this range. This calculation can be found in the ‘End Affector Range Calculation’ section.</p>
+<p>See Appendix for a video of this algorithm implemented</p>
+<h2 id="end-affecter-range-calculation">End Affecter Range Calculation</h2>
+<p>This calculation is used to calculate the radius of the circle in which the torso can shift without exceeding the range of a given leg.</p>
+<p>Currently the function is naively implemented, for it assumes that the torso’s yaw rotation is not changing. Ideally this function should find a globally optimal torso yaw as to maximize some value, such as the average range, however as of currently the torso’s ‘safety radius’ has not been an issue and thus has not required additional thought/work.</p>
+<pre class=" language-python"><code class="prism  language-python">let<span class="token punctuation">:</span>
+    S' <span class="token operator">=</span> the euclidean xy distance between a shoulder joint <span class="token operator">and</span> the center of the robot
+    R' <span class="token operator">=</span> the maxiumum euclidean xy distance between a end affector <span class="token operator">and</span> shoulder joint<span class="token punctuation">.</span> This <span class="token keyword">is</span> given by<span class="token punctuation">:</span>
+        sqrt<span class="token punctuation">(</span> <span class="token punctuation">(</span>leg length<span class="token punctuation">)</span><span class="token operator">^</span><span class="token number">2</span> <span class="token operator">-</span> <span class="token punctuation">(</span>delta z between end affector <span class="token operator">and</span> shoulder<span class="token punctuation">)</span><span class="token operator">^</span><span class="token number">2</span> <span class="token punctuation">)</span>
+    psi <span class="token operator">=</span> the angle between the torso's xy center <span class="token operator">and</span> each shoulders xy position<span class="token punctuation">.</span> This <span class="token keyword">is</span> measured <span class="token keyword">from</span> the side of the
+          robot to the line connecting the shoulder to the torso's center<span class="token punctuation">.</span> This value <span class="token keyword">is</span> constant
+    yaw <span class="token operator">=</span> the torso's current yaw
+    theta <span class="token operator">=</span> the angle between the x axis <span class="token operator">and</span> the line connecting the xy coordinate of a end affector <span class="token operator">and</span> the respective shoulders xy end point
+      
+
+<span class="token keyword">for</span> front left end affector<span class="token punctuation">:</span>
+    torso<span class="token operator">-</span>end_affector delta y max <span class="token operator">=</span> R<span class="token string">' * sin(theta) - S'</span> <span class="token operator">*</span> cos<span class="token punctuation">(</span> <span class="token number">90</span> <span class="token operator">-</span> <span class="token punctuation">(</span>yaw <span class="token operator">+</span> psi<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    torso<span class="token operator">-</span>end_affector x max <span class="token operator">=</span> R<span class="token string">' * cos(theta) - S'</span> <span class="token operator">*</span> sin<span class="token punctuation">(</span> <span class="token number">90</span> <span class="token operator">-</span> <span class="token punctuation">(</span>yaw <span class="token operator">+</span> psi<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">for</span> back left end affector<span class="token punctuation">:</span>
+    torso<span class="token operator">-</span>end_affector x max <span class="token operator">=</span> R<span class="token string">' * cos(theta) + S'</span> <span class="token operator">*</span> cos<span class="token punctuation">(</span> psi <span class="token operator">-</span> yaw <span class="token punctuation">)</span>
+    torso<span class="token operator">-</span>end_affector y max <span class="token operator">=</span> R<span class="token string">' * sin(theta) - S'</span> <span class="token operator">*</span> sin<span class="token punctuation">(</span> psi <span class="token operator">-</span> yaw <span class="token punctuation">)</span>
+
+<span class="token keyword">for</span> front right end affector<span class="token punctuation">:</span>
+    torso<span class="token operator">-</span>end_affector x max <span class="token operator">=</span> R<span class="token string">' * cos(theta) - S'</span> <span class="token operator">*</span> sin<span class="token punctuation">(</span> <span class="token number">90</span> <span class="token operator">-</span>  <span class="token punctuation">(</span> psi <span class="token operator">-</span> yaw <span class="token punctuation">)</span><span class="token punctuation">)</span>
+    torso<span class="token operator">-</span>end_affector y max <span class="token operator">=</span> R<span class="token string">' * sin(theta) + S'</span> <span class="token operator">*</span> cos<span class="token punctuation">(</span> <span class="token number">90</span> <span class="token operator">-</span> <span class="token punctuation">(</span> psi <span class="token operator">-</span> yaw <span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">for</span> back right end affector<span class="token punctuation">:</span>
+    torso<span class="token operator">-</span>end_affector y max <span class="token operator">=</span> R<span class="token string">' * sin(theta) + S'</span> <span class="token operator">*</span> sin<span class="token punctuation">(</span> yaw <span class="token operator">+</span> psi<span class="token punctuation">)</span>
+    torso<span class="token operator">-</span>end_affector x max <span class="token operator">=</span> R<span class="token string">' * cos(theta) + S'</span> <span class="token operator">*</span> cos<span class="token punctuation">(</span> yaw <span class="token operator">+</span> psi<span class="token punctuation">)</span>
+</code></pre>
+<h2 id="moving-forward">Moving Forward</h2>
+<p>I have thus far built my program to enable real time user control of the JPL Robosimian while guaranteeing stability in all known input states. Testing on the physical robot is tentativly planned for December 20th 2017.</p>
+<p>My next step in this project is to optimize the gait using a genetic algorithm. The parameters to optimize are as follows:</p>
+<ul>
+<li>Base state end affecter X position</li>
+<li>Base state end affecter Y position</li>
+<li>Base state end affecter Z position</li>
+<li>Height of leg step</li>
+<li>Forward gait torso forward shift amount</li>
+<li>Forward fait torso lateral shift amount</li>
+<li>Step time</li>
+<li>Torso shift time</li>
+</ul>
+<p>While computationally intensive a genetic approach is superior to a gradient/ neural network approach as the latter require a continuous cost function which does not currently exist.</p>
+<p>It is worth noting however that a genetic programming algorithm implementation may be superior to a genetic algorithm, as a GA will be constricted to the hand built motion sequence currently present, while a GP is free to explore and develop new gaits which had nor previously been considered.</p>
 <h2 id="appendix">Appendix</h2>
-<p>Finished Gait (ODE physics engine disabled)</p>
-<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/s_KDVGaFGgs?rel=0"></iframe>
+<p>Finished Forward Gait (ODE physics engine disabled)</p>
+<iframe width="560" height="315" class="embed-responsive-item" src="https://www.youtube.com/embed/s_KDVGaFGgs?rel=0"></iframe>
+<p>Turning Algorithm (ODE physics engine disabled)</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/XrthRcqI5jw" allowfullscreen=""></iframe>
 <p>Original Gaite ( non stable, ODE physics engine disabled)</p>
-<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/yeAvKYfvZMc?rel=0"></iframe>
+<iframe width="560" height="315" class="embed-responsive-item" src="https://www.youtube.com/embed/yeAvKYfvZMc?rel=0"></iframe>
 <p>Reset Stage 1
-<img src="https://github.com/JeremySMorgan/robosimian-gait-development/blob/master/torso_stage_1.png?raw=true" alt="Reset Stage 1"></p>
+<img src="https://github.com/JeremySMorgan/robosimian-gait-development/blob/master/Media/torso_stage_1.png?raw=true" alt="Reset Stage 1"></p>
 <p>Reset Stage 2
-<img src="https://github.com/JeremySMorgan/robosimian-gait-development/blob/master/reset_stage_2.png?raw=true" alt="Reset Stage 1"></p>
+<img src="https://github.com/JeremySMorgan/robosimian-gait-development/blob/master/Media/reset_stage_2.png?raw=true" alt="Reset Stage 1"></p>
 </div>
 </body>
 

@@ -1,16 +1,33 @@
-<div class="col-xs-12 col-md-6">
-        <div href="#" class="thumbnail">
-            <img src="../../images/astar.gif" alt="">
-            <h3>A*, Dijkstra Python Search Implementation</h3>
+<!DOCTYPE html>
+<html>
 
-            <p>
-                <i>June 2017</i>
-            </p>
-            <a href="https://github.com/JeremySMorgan/2DGraphSearch">
-                <p>Github Link</p>
-            </a>
-            <p>
-                • Python based implementation of A* and Dijkstra search algorithms through custom built 2D graph made from image analysis
-            </p>
-        </div>
-    </div>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jeremy Morgan Personal Site</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="prm-motion-planning">PRM Motion Planning</h1>
+<h2 id="overview">Overview</h2>
+<p>This is a personal project to implement different Graph searching algorithms on an obstacle filled 2D grid. The grid is created by either manually entering the locations of the start and end locations, aswell as all obstacles, or by scanning a image. Supporting code can be found on my <a href="https://github.com/JeremySMorgan/2DGraphSearch">github</a></p>
+<p>This project was written in python 3 using <code>pygame</code> and <code>pillow</code> over my free time during my freshman summer.</p>
+<h2 id="a-search">A* Search</h2>
+<p>The A* search assigns a cost to each node, <code>f</code>, which is the sum of <code>g</code> and <code>h</code>, where <code>g</code> is the cost of the path from the start node to the given node, and <code>h</code> is the cost from the implemented heuristic.</p>
+<p>For this project I used manhattan distance as the heuristic which is the sum of the change in x and y needed to reach the destination node.</p>
+<h2 id="dijkstras-search">Dijkstra’s Search</h2>
+<p>Dijkstra’s algorithm guarantees the shortest path between two nodes on a graph. It is implemented in this program.</p>
+<h2 id="notes">Notes</h2>
+<p>This is an excellent problem to approach with geometric algorithms. Namely either a visibility graph or cell decomposition could more efficiently navigate the presented images.</p>
+<h2 id="appendix">Appendix</h2>
+<p>A* search from image
+<img src="https://github.com/JeremySMorgan/2DGraphSearch/blob/master/gifs/astar.gif?raw=true" alt="A* Search"></p>
+<p>Dijkstra search from image
+<img src="https://github.com/JeremySMorgan/2DGraphSearch/blob/master/gifs/dijkstra_image_read.gif?raw=true" alt="Dijkstra"></p>
+<p>Dijkstra search from manually added obstacles
+<img src="https://github.com/JeremySMorgan/2DGraphSearch/blob/master/gifs/dijkstra.gif?raw=true" alt="Dijkstra"></p>
+</div>
+</body>
+
+</html>

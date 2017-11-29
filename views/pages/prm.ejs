@@ -1,18 +1,74 @@
-<div class="col-xs-12 col-md-6">
-        <div href="#" class="thumbnail">
-            <img src="../../images/prm_3.gif" alt="">
-            <h3>Probabilistic Roadmap - Configuration Space Navigation</h3>
-            <p>
-                <i> June 2017</i>
-            </p>
-            <a href="https://github.com/JeremySMorgan/Probabilistic-Roadmap-Configuration-Space-Navigation">
-                <p>Github Link</p>
-            </a>
-            <p>
-                • Matlab project to naviagate a 6 armed robot through an obstacle filled environment to a desired end configuration. The
-                Probabalistic Road Map method is used for configuration space graph construction. The created graph is then searched
-                using Dijkstra's algorithm to create a route through which the robot can travel to reach it's end goal. The GUI and
-                frame work was provided by the University of Pennsylvania's Computational Motion Planning online Mooc.
-            </p>
-        </div>
-    </div>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jeremy Morgan Personal Site</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="prm-motion-planning">PRM Motion Planning</h1>
+<h2 id="overview">Overview</h2>
+<p>This is a project to move a simulated 6 dimensional robotic arm through a crowded environment to a desired configuration by applying Dijkstra’s algorithm on a graph created by the Probabilistic Roadmap technique to create a viable path. The project was assigned as part of University of Pennsylvania’s  <a href="https://www.coursera.org/learn/robotics-motion-planning">Computational Motion Planning</a> online course. Supporting code can be found at my <a href="https://github.com/JeremySMorgan/Probabilistic-Roadmap-Configuration-Space-Navigation">github</a></p>
+<h2 id="program-runner">Program runner</h2>
+<p>This is the main script of the program. It first creates obstacles using <code>boxFV</code> and <code>appendFV</code>, calls the roadmap construction function, runs a dijkstra’s search on the resulting graph and animates the resulting path.</p>
+<h2 id="triangle-intersection-algorithm">Triangle Intersection Algorithm</h2>
+<p>This function determines if two triangles intersect. This method is used to determine if a proposed configuration space is valid, that is, the arm does not collide with any obstacles. This is done by breaking the arm joints and the obstacles into triangles and iterating through all of the arm triangles and obstacle triangles to see if there is an intersection.</p>
+<h2 id="prm">PRM</h2>
+<p>PRM builds a ‘roadmap’ by iterating through the specified number of samples, getting a random sample in the free space, and finding the k nearest neighbors. For each of the k nearest configuration space points to the random point if the line between the two points does no intersect any obstacles then this point is added to the stored graph.</p>
+<p>See the appendix for supporting code</p>
+<h2 id="dijkstras-search">Dijkstra’s Search</h2>
+<p>Dijkstra’s algorithm guarantees the shortest path between two nodes on a graph and is used to find a path between the start and end configuration nodes on the PRM graph</p>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>The GUI, obstacles and Dijkstra’s search implementation were provided by UPenn. I built the triangle intersection algorithm and the PRM generator. It is worth noting that I am able to build what was provided.</li>
+</ul>
+<h2 id="appendix">Appendix</h2>
+<p>neat gif
+<img src="https://github.com/JeremySMorgan/Probabilistic-Roadmap-Configuration-Space-Navigation/blob/master/prm_3.gif?raw=true" alt="neat gif"></p>
+<p>PRM Matlab Code</p>
+<pre class=" language-matlab"><code class="prism  language-matlab">
+x <span class="token operator">=</span> <span class="token function">RandomSample</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+<span class="token comment" spellcheck="true">% Array of random samples, each column corresponds to the coordinates</span>
+<span class="token comment" spellcheck="true">% of a point in configuration space.</span>
+samples <span class="token operator">=</span> <span class="token function">repmat</span><span class="token punctuation">(</span><span class="token function">x</span><span class="token punctuation">(</span><span class="token operator">:</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> nsamples<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+ 
+<span class="token comment" spellcheck="true">% edges - an array with 2 rows each column has two integer entries (i, j) which encodes the fact that sample i and sample j are connected by an edge. For each </span>
+edges <span class="token operator">=</span> <span class="token function">zeros</span><span class="token punctuation">(</span>nsamples<span class="token operator">*</span>k<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+edge_lengths <span class="token operator">=</span> <span class="token function">zeros</span><span class="token punctuation">(</span>nsamples<span class="token operator">*</span>k<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+<span class="token comment" spellcheck="true">% nedges - this integer keeps track of the number of edges we</span>
+<span class="token comment" spellcheck="true">% have in the graph so far</span>
+nedges <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+<span class="token keyword">for</span> <span class="token number">i</span> <span class="token operator">=</span> <span class="token number">2</span><span class="token operator">:</span>nsamples
+    <span class="token comment" spellcheck="true">% Note that we are assuming that RandomSample returns a sample in</span>
+    <span class="token comment" spellcheck="true">% freespace</span>
+    x <span class="token operator">=</span> <span class="token function">RandomSample</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">samples</span><span class="token punctuation">(</span><span class="token operator">:</span><span class="token punctuation">,</span><span class="token number">i</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token function">x</span><span class="token punctuation">(</span><span class="token operator">:</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">% Find the nearest neighbors</span>
+    distances <span class="token operator">=</span> <span class="token function">Dist</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> <span class="token function">samples</span><span class="token punctuation">(</span><span class="token operator">:</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token operator">:</span><span class="token punctuation">(</span><span class="token number">i</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    length_n <span class="token operator">=</span> <span class="token function">length</span><span class="token punctuation">(</span>distances<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">[</span>sorted_distances<span class="token punctuation">,</span> index_distances<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">sort</span><span class="token punctuation">(</span>distances<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">for</span> ii <span class="token operator">=</span> <span class="token number">1</span><span class="token operator">:</span> <span class="token function">min</span><span class="token punctuation">(</span>k<span class="token punctuation">,</span> length_n<span class="token punctuation">)</span>
+        <span class="token number">j</span> <span class="token operator">=</span> <span class="token function">index_distances</span><span class="token punctuation">(</span>ii<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">LocalPlanner</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> <span class="token function">samples</span><span class="token punctuation">(</span><span class="token operator">:</span><span class="token punctuation">,</span><span class="token number">j</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            nedges <span class="token operator">=</span> nedges <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token function">edges</span><span class="token punctuation">(</span>nedges<span class="token punctuation">,</span><span class="token operator">:</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token punctuation">[</span>length_n<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">j</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token function">edge_lengths</span><span class="token punctuation">(</span>nedges<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token function">sorted_distances</span><span class="token punctuation">(</span>ii<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">end</span>
+    <span class="token keyword">end</span>
+    <span class="token function">fprintf</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'nsamples = %d, nedges = %d\n'</span><span class="token punctuation">,</span> <span class="token number">i</span><span class="token punctuation">,</span> nedges<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">end</span>
+
+</code></pre>
+</div>
+</body>
+
+</html>
