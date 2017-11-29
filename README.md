@@ -1,39 +1,78 @@
-# node-js-getting-started
+Here is [my portfolio](http://jeremymorgan.net/portfolio) which you will be using a template for your own. To do this you will need a [heroku account](https://dashboard.heroku.com/apps). You will also need the following command line tools:
 
-A barebones Node.js app using [Express 4](http://expressjs.com/).
+ 1. git
+ 2. node
+ 3. npm
 
-This application supports the [Getting Started with Node on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
+There are instructions online about how to install all of these so I will not cover this.
 
-## Running Locally
+## Install Portfolio Template
+the first step is to clone my github repository and change to the correct branch
 
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
+`git clone https://github.com/JeremySMorgan/Personal-Site.git`
+`cd Personal-Site/`
+`git pull origin v2`
 
-```sh
-$ git clone git@github.com:heroku/node-js-getting-started.git # or clone your own fork
-$ cd node-js-getting-started
-$ npm install
-$ npm start
+run the web app by starting the node server:
+
+`node index.js`
+
+and navigate to http://localhost:5000/ on your computer. the template should be all ready for you to mess with.
+
+## Make Your Own Portfolio
+ 
+I used bootstrap to make the portfolio page. checkout the bootstrap website for [a guide](https://getbootstrap.com/docs/4.0/getting-started/introduction/). 
+
+To add a item to the portfolio section, insert the following after the first `<div class="row">` which appears on the page (/ after line 21):
+
+```html
+<div class="col-md-6">
+	<!-- item name -->
+	<div href="#" class="thumbnail">
+		<a href="/portfolio/<item name>">
+			<h2 class="text-centered text-center center"> Item title</h2>
+		</a>
+		<div class="text-centered text-center center">
+			<i class="text-centered text-center center">Brief Item description.</i>
+			<br><br>
+		</div>
+		<a href="/portfolio/<item name>">
+			<img src="/images/<item image name>" class="img-rounded">
+		</a>
+	</div>
+</div>
 ```
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
+then you need to go into `index.js` and add:
 
-## Deploying to Heroku
-
+``` javascript
+app.get('/portfolio/<item name>', function(request, response) {
+  response.render('pages/<item name>');
+});
 ```
-$ heroku create
-$ git push heroku master
-$ heroku open
+
+finally you need to make a new file called `<item name>.ejs` and add it to the /pages directory. This file should have a in depth explanation of your project. I used [stackedit](https://stackedit.io/app) to write each description in markup, then exported it to html using their handy side menu .That's it for full portfolio items. 
+
+To add items to the **Coming Soon...** section, add the following html to 	`portfolio.ejs`:
+
+``` html
+<div class="col-md-4">
+	<div href="#" class="thumbnail">
+		<img src="../../images/arc.png" alt="">
+		<h3> item description </h3>
+		<i> item dates </i> <br> <br>
+		• bullet point 1
+		<br> • bullet point 2
+	</div>
+</div>
 ```
-or
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+*Note*: this should be inserted on line 110 of the unmodified document, or before the closing `<div>` tag of the `<div class="row">` found immediately below `<h1>Coming Soon...</h1><hr>`
 
-## Documentation
+## Share Your Portfolio
 
-For more information about using Node.js on Heroku, see these Dev Center articles:
+two steps:
+1. push it to a github repo. See this [stack overflow post](https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/)
+2. host it on heroku. This is really easy. go to your [heroku dashboard](https://dashboard.heroku.com/apps) and follow their instructions.
 
-- [Getting Started with Node.js on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
-- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
-- [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
-- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
+And thats it! Enjoy.
