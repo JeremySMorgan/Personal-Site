@@ -16,6 +16,8 @@
 <p>This is the main script of the program. It first creates obstacles using <code>boxFV</code> and <code>appendFV</code>, calls the roadmap construction function, runs a dijkstra’s search on the resulting graph and animates the resulting path.</p>
 <h2 id="triangle-intersection-algorithm">Triangle Intersection Algorithm</h2>
 <p>This function determines if two triangles intersect. This method is used to determine if a proposed configuration space is valid, that is, the arm does not collide with any obstacles. This is done by breaking the arm joints and the obstacles into triangles and iterating through all of the arm triangles and obstacle triangles to see if there is an intersection.</p>
+<p>The algorithm works by checking to see if either triangle is inside one another. This counts as an intersection. This is done by checking to see if all three points of each triangle is inside the other triangle. This is done by applying the same side algorithm. See the appendix for pseudo-code</p>
+<p>We then test to see if any of the triangles segments intersect with any segments of the other triangle. This is done by iterating through all possible combinations of segments and applying the Line Intersection Algorithm to determine if the two segments intersect. See the appendix for pseudo-code</p>
 <h2 id="prm">PRM</h2>
 <p>PRM builds a ‘roadmap’ by iterating through the specified number of samples, getting a random sample in the free space, and finding the k nearest neighbors. For each of the k nearest configuration space points to the random point if the line between the two points does no intersect any obstacles then this point is added to the stored graph.</p>
 <p>See the appendix for supporting code</p>
@@ -26,66 +28,31 @@
 <li>The GUI, obstacles and Dijkstra’s search implementation were provided by UPenn. I built the triangle intersection algorithm and the PRM generator. It is worth noting that I am able to build what was provided.</li>
 </ul>
 <h2 id="appendix">Appendix</h2>
-<p>neat gif
+<p>Animation
 <img src="https://github.com/JeremySMorgan/Probabilistic-Roadmap-Configuration-Space-Navigation/blob/master/prm_3.gif?raw=true" alt="neat gif"></p>
-<p>Triangle Intersection</p>
-<pre class=" language-matlab"><code class="prism  language-matlab"><span class="token keyword">function</span> flag <span class="token operator">=</span> <span class="token function">triangle_intersection</span><span class="token punctuation">(</span>P1<span class="token punctuation">,</span> P2<span class="token punctuation">)</span>    
-    flag <span class="token operator">=</span> false<span class="token punctuation">;</span> 
-    <span class="token keyword">for</span> <span class="token number">i</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token operator">:</span><span class="token number">3</span>
-        <span class="token keyword">for</span> <span class="token number">j</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token operator">:</span><span class="token number">3</span>
-            <span class="token keyword">if</span> <span class="token number">i</span> <span class="token operator">&gt;=</span> <span class="token number">3</span>
-                ii <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token keyword">else</span>
-                ii <span class="token operator">=</span> <span class="token number">i</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token keyword">end</span>
-            <span class="token keyword">if</span> <span class="token number">j</span> <span class="token operator">&gt;=</span> <span class="token number">3</span>
-                jj <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token keyword">else</span>
-                jj <span class="token operator">=</span> <span class="token number">j</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token keyword">end</span>
+<p>Line Intersection Algorithm (between (AB) and (CD))</p>
+<pre class=" language-matlab"><code class="prism  language-matlab"><span class="token comment" spellcheck="true">% * implies dot product</span>
+E <span class="token operator">=</span> B<span class="token operator">-</span>A <span class="token operator">=</span> <span class="token punctuation">(</span> Bx<span class="token operator">-</span>Ax<span class="token punctuation">,</span> By<span class="token operator">-</span>Ay <span class="token punctuation">)</span>
+F <span class="token operator">=</span> D<span class="token operator">-</span>C <span class="token operator">=</span> <span class="token punctuation">(</span> Dx<span class="token operator">-</span>Cx<span class="token punctuation">,</span> Dy<span class="token operator">-</span>Cy <span class="token punctuation">)</span> 
+P <span class="token operator">=</span> <span class="token punctuation">(</span> <span class="token operator">-</span>Ey<span class="token punctuation">,</span> Ex <span class="token punctuation">)</span>
+h <span class="token operator">=</span> <span class="token punctuation">(</span> <span class="token punctuation">(</span>A<span class="token operator">-</span>C<span class="token punctuation">)</span> <span class="token operator">*</span> P <span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token punctuation">(</span> F <span class="token operator">*</span> P <span class="token punctuation">)</span>
 
-            x1 <span class="token operator">=</span> <span class="token function">P1</span><span class="token punctuation">(</span><span class="token number">i</span> <span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            x2 <span class="token operator">=</span> <span class="token function">P1</span><span class="token punctuation">(</span>ii<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            y1 <span class="token operator">=</span> <span class="token function">P1</span><span class="token punctuation">(</span><span class="token number">i</span> <span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            y2 <span class="token operator">=</span> <span class="token function">P1</span><span class="token punctuation">(</span>ii<span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-            x3 <span class="token operator">=</span> <span class="token function">P2</span><span class="token punctuation">(</span><span class="token number">j</span> <span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            x4 <span class="token operator">=</span> <span class="token function">P2</span><span class="token punctuation">(</span>jj<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            y3 <span class="token operator">=</span> <span class="token function">P2</span><span class="token punctuation">(</span><span class="token number">j</span> <span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            y4 <span class="token operator">=</span> <span class="token function">P2</span><span class="token punctuation">(</span>jj<span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      
-
-            <span class="token keyword">if</span> <span class="token function">line_intersection</span><span class="token punctuation">(</span>x1<span class="token punctuation">,</span> x2<span class="token punctuation">,</span> x3<span class="token punctuation">,</span> x4<span class="token punctuation">,</span> y1<span class="token punctuation">,</span> y2<span class="token punctuation">,</span> y3<span class="token punctuation">,</span> y4<span class="token punctuation">)</span><span class="token operator">==</span> <span class="token number">1</span>
-                flag <span class="token operator">=</span> true<span class="token punctuation">;</span>
-            <span class="token keyword">end</span>
-        <span class="token keyword">end</span>
-    <span class="token keyword">end</span>
-
-<span class="token keyword">end</span>
-
-<span class="token keyword">function</span> <span class="token punctuation">[</span> intersection <span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">line_intersection</span><span class="token punctuation">(</span> x1<span class="token punctuation">,</span> x2<span class="token punctuation">,</span> x3<span class="token punctuation">,</span> x4<span class="token punctuation">,</span> y1<span class="token punctuation">,</span> y2<span class="token punctuation">,</span> y3<span class="token punctuation">,</span> y4<span class="token punctuation">)</span>
-
-    numera <span class="token operator">=</span> <span class="token punctuation">(</span>x4<span class="token operator">-</span>x3<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>y1<span class="token operator">-</span>y3<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token punctuation">(</span>y4<span class="token operator">-</span>y3<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>x1<span class="token operator">-</span>x3<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    denom  <span class="token operator">=</span> <span class="token punctuation">(</span>y4<span class="token operator">-</span>y3<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>x2<span class="token operator">-</span>x1<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token punctuation">(</span>x4<span class="token operator">-</span>x3<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>y2<span class="token operator">-</span>y1<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    numerb <span class="token operator">=</span> <span class="token punctuation">(</span>x2<span class="token operator">-</span>x1<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>y1<span class="token operator">-</span>y3<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token punctuation">(</span>y2<span class="token operator">-</span>y1<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>x1<span class="token operator">-</span>x3<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">if</span> <span class="token function">abs</span><span class="token punctuation">(</span>numera<span class="token punctuation">)</span> <span class="token operator">&lt;</span> eps <span class="token operator">&amp;&amp;</span> <span class="token function">abs</span><span class="token punctuation">(</span>numerb<span class="token punctuation">)</span> <span class="token operator">&lt;</span> eps <span class="token operator">&amp;&amp;</span> <span class="token function">abs</span><span class="token punctuation">(</span>denom<span class="token punctuation">)</span> <span class="token operator">&lt;</span> eps
-        intersection <span class="token operator">=</span> true<span class="token punctuation">;</span>
-    <span class="token keyword">else</span>
-        <span class="token comment" spellcheck="true">% test for parrellel case </span>
-        <span class="token keyword">if</span> <span class="token function">abs</span><span class="token punctuation">(</span>denom<span class="token punctuation">)</span> <span class="token operator">&lt;</span> eps
-            intersection <span class="token operator">=</span> false<span class="token punctuation">;</span>
-        <span class="token keyword">else</span>
-            <span class="token comment" spellcheck="true">% test for an intersection along segments </span>
-            mua <span class="token operator">=</span> numera <span class="token operator">/</span> denom<span class="token punctuation">;</span>
-            mub <span class="token operator">=</span> numerb <span class="token operator">/</span> denom<span class="token punctuation">;</span>
-            <span class="token keyword">if</span> mua <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span> mua <span class="token operator">&gt;</span> <span class="token number">1</span> <span class="token operator">||</span> mub <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span> mub <span class="token operator">&gt;</span> <span class="token number">1</span>
-                intersection <span class="token operator">=</span> false<span class="token punctuation">;</span>
-            <span class="token keyword">else</span>
-                intersection <span class="token operator">=</span> true<span class="token punctuation">;</span>
-            <span class="token keyword">end</span>
-        <span class="token keyword">end</span>
-    <span class="token keyword">end</span>   
-<span class="token keyword">end</span>
+<span class="token keyword">if</span> h <span class="token operator">=</span> <span class="token number">0</span> <span class="token operator">|</span> <span class="token number">1</span><span class="token punctuation">,</span> endpoints touch
+<span class="token keyword">if</span> <span class="token number">0</span><span class="token operator">&lt;</span>h<span class="token operator">&lt;</span><span class="token number">1</span><span class="token punctuation">,</span> lines intersect
+</code></pre>
+<p>Same Side Algorithm</p>
+<pre class=" language-matlab"><code class="prism  language-matlab"><span class="token comment" spellcheck="true">% * implies dot product</span>
+<span class="token keyword">function</span> <span class="token function">same_side</span><span class="token punctuation">(</span>p1<span class="token punctuation">,</span>p2<span class="token punctuation">,</span> a<span class="token punctuation">,</span>b<span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true">% determines if p1, p2 are on the same side of the segment defined by (ab)</span>
+    cp1 <span class="token operator">=</span> <span class="token function">cross</span><span class="token punctuation">(</span>b<span class="token operator">-</span>a<span class="token punctuation">,</span> p1<span class="token operator">-</span>a<span class="token punctuation">)</span>
+    cp2 <span class="token operator">=</span> <span class="token function">cross</span><span class="token punctuation">(</span>b<span class="token operator">-</span>a<span class="token punctuation">,</span> p2<span class="token operator">-</span>a<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> cp1<span class="token operator">*</span>cp2 <span class="token operator">&gt;=</span> <span class="token number">0</span> <span class="token keyword">return</span> true
+    <span class="token keyword">return</span> false
+</code></pre>
+<p>Point In Triangle Algorithm</p>
+<pre class=" language-matlab"><code class="prism  language-matlab"><span class="token comment" spellcheck="true">% * implies dot product</span>
+<span class="token keyword">if</span> <span class="token function">same_side</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span>a<span class="token punctuation">,</span> b<span class="token punctuation">,</span>c<span class="token punctuation">)</span> and <span class="token function">same_side</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span>b<span class="token punctuation">,</span> a<span class="token punctuation">,</span>c<span class="token punctuation">)</span> and <span class="token function">same_side</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span>c<span class="token punctuation">,</span> a<span class="token punctuation">,</span>b<span class="token punctuation">)</span> <span class="token keyword">return</span> true
+    <span class="token keyword">return</span> false
 </code></pre>
 <p>PRM Matlab Code</p>
 <pre class=" language-matlab"><code class="prism  language-matlab">
