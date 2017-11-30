@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jeremy Morgan Personal Site</title>
+  <title>robosimian</title>
   <link rel="stylesheet" href="https://stackedit.io/style.css" />
 </head>
 
@@ -72,9 +72,87 @@
 <h2 id="turning">Turning</h2>
 <p>I have developed my own turn gait, as inspired by J. Wei et al. which is described in their paper <a href="https://link.springer.com/content/pdf/10.1007/978-3-642-21402-8_56.pdf">'Gait and Stability Analysis of a Quadruped Robot '</a>.  Just like the forward gait, the torso must shift twice in order to stay inside a support triangle at all points in the maneuver. Additionally, it is necessary to calculate the distance that the torso can shift while a foot is fixed, so that the torso does not shift outside of this range. This calculation can be found in the ‘End Affector Range Calculation’ section.</p>
 <p>See Appendix for a video of this algorithm implemented</p>
+<p>See the appendix for psuedo-code</p>
+<h2 id="reset-algorithm">Reset Algorithm</h2>
+<p>The reset algorithm moves the robot back to initial pose. The algorithm considers three possible starting states:</p>
+<ol>
+<li>4 legs currently make a potential base state</li>
+<li>3 legs currently make a potential base state</li>
+<li>&lt;3 legs currently make a potential base state</li>
+</ol>
+<p>In the four legs base state case the torso simply needs to translate and rotate to the commanded position.</p>
+<p>For the case in which 3 legs make a base state, the torso moves to the centroid of the area defined by the 5 end effector positions (3 that don’t move, 1 from the end effector to move’s current position, and 1 from the end effector commanded position), and the support triangle formed by the three legs commanding the base state, the out of place leg moves to its commanded position and the torso moves to its commanded base state.</p>
+<p>For all other cases, a similar procedure to the 3 legs base state is used, only the torso’s current position commands the base state and the torso must shift twice to end in the final base state.</p>
+<p>This algorithm can improve its efficiency by detecting when two legs compose a potential base state, so that only two leg steps need to be taken, as opposed to all 4 which is currently what would happen. (except if a leg happens to be exactly where it is commanded to be). This improvement has not been made because development is still being done on areas which have not been built yet. Improvements to functioning code such as this will be completed once the program has been thoroughly tested.</p>
+<p>See Appendix for psuedo-code</p>
 <h2 id="end-affecter-range-calculation">End Affecter Range Calculation</h2>
 <p>This calculation is used to calculate the radius of the circle in which the torso can shift without exceeding the range of a given leg.</p>
 <p>Currently the function is naively implemented, for it assumes that the torso’s yaw rotation is not changing. Ideally this function should find a globally optimal torso yaw as to maximize some value, such as the average range, however as of currently the torso’s ‘safety radius’ has not been an issue and thus has not required additional thought/work.</p>
+<p>See the appendix for psuedo-code</p>
+<h2 id="moving-forward">Moving Forward</h2>
+<p>The next step in this project is to build a set of test suites to ensure the robot maintains balance while avoiding self collisions in all known input states. This will be done by automating user input, and running the robot in physics enabled simulation to test for collision, joint torque and velocity limits exceeded, and robot instability.</p>
+<p>Testing on the physical robot is planned for December 20th 2017.</p>
+<p>The next step after simulated and physical testing is completed is to optimize the gait using a genetic algorithm. The parameters to optimize are as follows:</p>
+<ul>
+<li>Base state end affecter X position</li>
+<li>Base state end affecter Y position</li>
+<li>Base state end affecter Z position</li>
+<li>Height of leg step</li>
+<li>Forward gait torso forward shift amount</li>
+<li>Forward fait torso lateral shift amount</li>
+<li>Step time</li>
+<li>Torso shift time</li>
+</ul>
+<p>While computationally intensive a genetic approach is superior to a gradient/ neural network approach as the latter require a continuous cost function which does not currently exist, and would be very difficult, if not feasible at all, to create.</p>
+<p>I have been thinking about using genetic programming with a set of primitive robot motions (end affector translation, torso rotation, torso translation ) to develop new gaits which have not previously been considered. This is just daydreaming material at this point, although I believe the idea holds merit.</p>
+<h2 id="appendix">Appendix</h2>
+<p>Finished Forward Gait (ODE physics engine disabled)</p>
+<iframe width="560" height="315" class="embed-responsive-item" src="https://www.youtube.com/embed/s_KDVGaFGgs?rel=0"></iframe>
+<p>Turning Algorithm (ODE physics engine disabled)</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/XrthRcqI5jw" allowfullscreen=""></iframe>
+<p>Original Gaite ( non stable, ODE physics engine disabled)</p>
+<iframe width="560" height="315" class="embed-responsive-item" src="https://www.youtube.com/embed/yeAvKYfvZMc?rel=0"></iframe>
+<p>Reset Stage 1
+<img src="https://github.com/JeremySMorgan/robosimian-gait-development/blob/master/Media/torso_stage_1.png?raw=true" alt="Reset Stage 1"></p>
+<p>Reset Stage 2
+<img src="https://github.com/JeremySMorgan/robosimian-gait-development/blob/master/Media/reset_stage_2.png?raw=true" alt="Reset Stage 1"></p>
+<p>reset algorithm psuedo-code</p>
+<pre class=" language-python"><code class="prism  language-python">
+let<span class="token punctuation">:</span>
+	B_t <span class="token operator">=</span> torso base state position
+	B_<span class="token punctuation">(</span>fr<span class="token operator">/</span>fl<span class="token operator">/</span>br<span class="token operator">/</span>bl<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token punctuation">(</span>front right<span class="token operator">/</span>front left<span class="token operator">/</span> back right<span class="token operator">/</span> back left<span class="token punctuation">)</span> base state position
+	P_<span class="token punctuation">(</span>fr<span class="token operator">/</span>fl<span class="token operator">/</span>br<span class="token operator">/</span>bl<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token punctuation">(</span>front right<span class="token operator">/</span>front left<span class="token operator">/</span> back right<span class="token operator">/</span> back left<span class="token punctuation">)</span> starting foot position
+	tri<span class="token punctuation">(</span>end_affector_1<span class="token punctuation">,</span> end_affector_2<span class="token punctuation">,</span> end_affector_3<span class="token punctuation">)</span> <span class="token operator">=</span> triangle defined by the specified triangles 
+	ST_<span class="token punctuation">(</span>fr<span class="token operator">/</span>fl<span class="token operator">/</span>br<span class="token operator">/</span>bl<span class="token punctuation">)</span> <span class="token operator">=</span> Support Triangle defined by the three legs <span class="token operator">not</span> specified <span class="token keyword">in</span> the variable name<span class="token punctuation">.</span> For example ST_fr <span class="token keyword">is</span> the support triangle created by the fl<span class="token punctuation">,</span> br<span class="token punctuation">,</span> bl end affectors
+
+
+<span class="token keyword">if</span> <span class="token number">4</span> legs make a base state B<span class="token punctuation">,</span> regardless of torso position<span class="token punctuation">:</span>
+	Shift <span class="token operator">and</span> rotate torso to torso position P commanded by B
+<span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token number">3</span> legs make a base state B<span class="token punctuation">,</span> regardless of torso position<span class="token punctuation">:</span>
+    let ST_t <span class="token operator">=</span> the support triangle defined by the three legs currently <span class="token keyword">in</span> the base state
+    <span class="token keyword">if</span> the current torso position <span class="token keyword">is</span> <span class="token operator">not</span> <span class="token keyword">in</span> ST_t<span class="token punctuation">:</span>
+	    shift torso to the center of ST_t
+	step 4th leg that <span class="token keyword">is</span> <span class="token operator">not</span> <span class="token keyword">in</span> B to commanded base state defined by B
+	shift torso to B_t
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+	<span class="token comment" spellcheck="true"># Move left legs (first stage)</span>
+	let ST_fl <span class="token operator">=</span> tri<span class="token punctuation">(</span> P_0bl<span class="token punctuation">,</span> P_0fr<span class="token punctuation">,</span> P_0br<span class="token punctuation">)</span>
+	let ST_bl <span class="token operator">=</span> tri<span class="token punctuation">(</span> B_fl<span class="token punctuation">,</span> P_0fr<span class="token punctuation">,</span> P_0br<span class="token punctuation">)</span>
+	let Pt <span class="token operator">=</span> middle point <span class="token keyword">in</span> area defined by <span class="token punctuation">(</span> ST_fr intersection ST_bl <span class="token punctuation">)</span>
+	shift torso to Pt
+	back left leg step to B_bl
+	front left leg step to B_fl
+	
+	<span class="token comment" spellcheck="true"># Move right legs (second stage)</span>
+	let ST_fr <span class="token operator">=</span> tri<span class="token punctuation">(</span>B_br<span class="token punctuation">,</span> B_bl<span class="token punctuation">,</span> B_fl<span class="token punctuation">)</span>
+	let ST_bf <span class="token operator">=</span> tri<span class="token punctuation">(</span> P_0fr<span class="token punctuation">,</span> B_bl<span class="token punctuation">,</span> B_fl <span class="token punctuation">)</span>
+
+    shift torso to middle point <span class="token keyword">in</span> area defined by <span class="token punctuation">(</span>ST_fr intersection ST_br<span class="token punctuation">)</span>
+    front right to B_fr
+    back right to B_br
+    shift torso to B_t
+</code></pre>
+<p>end affector range calculation psuedo-code</p>
 <pre class=" language-python"><code class="prism  language-python">let<span class="token punctuation">:</span>
     S' <span class="token operator">=</span> the euclidean xy distance between a shoulder joint <span class="token operator">and</span> the center of the robot
     R' <span class="token operator">=</span> the maxiumum euclidean xy distance between a end affector <span class="token operator">and</span> shoulder joint<span class="token punctuation">.</span> This <span class="token keyword">is</span> given by<span class="token punctuation">:</span>
@@ -101,32 +179,6 @@
     torso<span class="token operator">-</span>end_affector y max <span class="token operator">=</span> R<span class="token string">' * sin(theta) + S'</span> <span class="token operator">*</span> sin<span class="token punctuation">(</span> yaw <span class="token operator">+</span> psi<span class="token punctuation">)</span>
     torso<span class="token operator">-</span>end_affector x max <span class="token operator">=</span> R<span class="token string">' * cos(theta) + S'</span> <span class="token operator">*</span> cos<span class="token punctuation">(</span> yaw <span class="token operator">+</span> psi<span class="token punctuation">)</span>
 </code></pre>
-<h2 id="moving-forward">Moving Forward</h2>
-<p>I have thus far built my program to enable real time user control of the JPL Robosimian while guaranteeing stability in all known input states. Testing on the physical robot is tentativly planned for December 20th 2017.</p>
-<p>My next step in this project is to optimize the gait using a genetic algorithm. The parameters to optimize are as follows:</p>
-<ul>
-<li>Base state end affecter X position</li>
-<li>Base state end affecter Y position</li>
-<li>Base state end affecter Z position</li>
-<li>Height of leg step</li>
-<li>Forward gait torso forward shift amount</li>
-<li>Forward fait torso lateral shift amount</li>
-<li>Step time</li>
-<li>Torso shift time</li>
-</ul>
-<p>While computationally intensive a genetic approach is superior to a gradient/ neural network approach as the latter require a continuous cost function which does not currently exist.</p>
-<p>It is worth noting however that a genetic programming algorithm implementation may be superior to a genetic algorithm, as a GA will be constricted to the hand built motion sequence currently present, while a GP is free to explore and develop new gaits which had nor previously been considered.</p>
-<h2 id="appendix">Appendix</h2>
-<p>Finished Forward Gait (ODE physics engine disabled)</p>
-<iframe width="560" height="315" class="embed-responsive-item" src="https://www.youtube.com/embed/s_KDVGaFGgs?rel=0"></iframe>
-<p>Turning Algorithm (ODE physics engine disabled)</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/XrthRcqI5jw" allowfullscreen=""></iframe>
-<p>Original Gaite ( non stable, ODE physics engine disabled)</p>
-<iframe width="560" height="315" class="embed-responsive-item" src="https://www.youtube.com/embed/yeAvKYfvZMc?rel=0"></iframe>
-<p>Reset Stage 1
-<img src="https://github.com/JeremySMorgan/robosimian-gait-development/blob/master/Media/torso_stage_1.png?raw=true" alt="Reset Stage 1"></p>
-<p>Reset Stage 2
-<img src="https://github.com/JeremySMorgan/robosimian-gait-development/blob/master/Media/reset_stage_2.png?raw=true" alt="Reset Stage 1"></p>
 </div>
 </body>
 
