@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Light Matrix Interface </title>
+
+    <link rel="stylesheet" type="text/css" href="../../stylesheets/bootstrap_for_led_interface.css">
+
+    <!-- boxDrawing creation engine -->
+    <script src="../../js/GenerateDrawingArea.js"></script>
+
+    <!-- Drawing engine -->
+    <script src="../../js/drawOnDrawingArea.js"></script>
+
+    <!-- Sending Data -->
+    <script src="../../js/sendingData.js"></script>
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../../stylesheets/stylesheet.css">
+
+
+	<link rel="stylesheet" href="../../ColorPicker/colorpicker.css" type="text/css" />
+    <link rel="stylesheet" media="screen" type="text/css" href="../../ColorPicker/layout.css" />
+    <title>ColorPicker - jQuery plugin</title>
+	<script type="text/javascript" src="../../ColorPicker/jquery.js"></script>
+	<script type="text/javascript" src="../../ColorPicker/colorpicker.js"></script>
+    <script type="text/javascript" src="../../ColorPicker/eye.js"></script>
+    <script type="text/javascript" src="../../ColorPicker/utils.js"></script>
+    <script type="text/javascript" src="../../ColorPicker/layout.js?ver=1.0.2"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+
+            led_size = 28
+
+            // Parameters of Matrix
+            var drawBoxWidth = led_size * 25;
+            var drawBoxHeight = led_size * 25;
+            var divWidth = (drawBoxHeight / led_size);
+            var divHeight = (drawBoxHeight / led_size);
+            var classNameDivs = "singleBox";
+            var idNameDrawingArea = "drawingArea";
+
+            // Parameters of drawingArea
+            var drawingAreaBorderColor = "black";
+            var drawingAreaBorderWidth = 1 + "px";
+
+            //Set width attribute of drawingArea
+            document.getElementById("drawingArea").style.width = drawBoxWidth + "px";
+            document.getElementById("drawingArea").style.height = drawBoxHeight + "px";
+            document.getElementById("drawingArea").style.border = drawingAreaBorderWidth + " solid " + drawingAreaBorderColor;
+
+            // Create the matrix
+            drawBox(drawBoxWidth, drawBoxHeight, divWidth, divHeight, classNameDivs, idNameDrawingArea);
+
+            // Draw the color wheel
+            $('colorpickerHolder').ColorPicker({ flat: true });
+
+            // Parameters for drawing engine
+            var numberDivsPerRow = drawBoxWidth / divWidth;
+            var numberDivsPerColumn = drawBoxHeight / divHeight;
+
+            // Enable users to draw on in the drawingArea
+            DrawEngineCreation(numberDivsPerRow, numberDivsPerColumn);
+
+
+            // Function to create JSON object for microcontroller
+            window.sendData = function () {
+                executeDataSend(numberDivsPerRow, numberDivsPerColumn);
+            }
+        })
+
+    </script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <h1 id="headerText"> {light matrix interface} </h1>
+        <div class="row">
+            <div class="col-md-4">
+                <div id="drawingArea"></div>
+            </div>
+            <div class="col-md-4">
+                    <p id="colorpickerHolder"></p>
+                </div>
+            <div class="col-md-4">
+                <div id="userControls">
+                    <div id="userControlsInsideContainer">
+                        <button onclick="clearDrawingArea()"> CLEAR DRAWING AREA</button>
+                        <br>
+                        <br>
+                        <button onclick="sendData()"> SEND DATA</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

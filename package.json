@@ -10,8 +10,13 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "body-parser": "^1.18.2",
     "ejs": "2.5.6",
-    "express": "4.15.2"
+    "express": "4.15.2",
+    "http": "0.0.0",
+    "https": "^1.0.0",
+    "querystring": "^0.2.0",
+    "request": "^2.83.0"
   },
   "repository": {
     "type": "git",
