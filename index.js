@@ -53,8 +53,8 @@ app.post('/send_post',function(request, response){
   console.log("/send_post called");
   //console.log(request.body);
 
+    /*
     var data = querystring.stringify(request.body);
-
     var options = {
         host: 'led_interface.ngrok.io',
         path: "/LED",
@@ -70,9 +70,8 @@ app.post('/send_post',function(request, response){
             //console.log("body: " + chunk);
         });
     });
-
     req.write(data);
-    req.end();
+    req.end();*/
 
     response.send("OK")
 });

@@ -22,6 +22,7 @@ html{
     position: relative;
     float:left;
     margin-left: 3em;
+    margin-right: 3em;
 }
 
 /* The container of the color picker */
@@ -56,7 +57,7 @@ button{
 
 
 /* --- START User Control Panel --- */
-#userControls{
+.userControls{
 
 
     width: 352px;
@@ -71,7 +72,7 @@ button{
     border: 2px solid aqua;
 
 }
-#userControlsInsideContainer{
+.userControlsInsideContainer{
 
     /* Centers the div vertically */
     position: relative;

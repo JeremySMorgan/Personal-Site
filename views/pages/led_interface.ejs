@@ -64,7 +64,7 @@
             var numberDivsPerColumn = drawBoxHeight / divHeight;
 
             // Enable users to draw on in the drawingArea
-            DrawEngineCreation(numberDivsPerRow, numberDivsPerColumn);
+            drawing_engine =DrawEngineCreation(numberDivsPerRow, numberDivsPerColumn);
 
 
             // Function to create JSON object for microcontroller
@@ -73,31 +73,41 @@
             }
         })
 
+        function clear_drawing_area(){
+            drawing_engine.clearDrawingArea()
+        }
+
+        function display_text(){
+            drawing_engine.display_text()
+        }
+
     </script>
 </head>
 
 <body>
     <div class="container-fluid">
         <h1 id="headerText"> {light matrix interface} </h1>
-        <div class="row">
-            <div class="col-md-4">
                 <div id="drawingArea"></div>
-            </div>
-            <div class="col-md-4">
+
                     <p id="colorpickerHolder"></p>
-                </div>
-            <div class="col-md-4">
-                <div id="userControls">
-                    <div id="userControlsInsideContainer">
-                        <button onclick="clearDrawingArea()"> CLEAR DRAWING AREA</button>
+
+        <div class="userControls">
+            <div class="userControlsInsideContainer">
+                <button onclick="display_text()"> DISPLAY TEXT</button><br><br>
+                <input id="user_text" type="text" name="fname">
+            </div>
+        </div>
+
+                <div class="userControls">
+                    <div class="userControlsInsideContainer">
+                        <button onclick="clear_drawing_area()"> CLEAR DRAWING AREA</button>
                         <br>
                         <br>
                         <button onclick="sendData()"> SEND DATA</button>
                     </div>
                 </div>
-            </div>
+
         </div>
-    </div>
 
 </body>
 </html>
