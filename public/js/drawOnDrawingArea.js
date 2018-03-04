@@ -185,20 +185,20 @@ function DrawEngine(numberDivsPerRow, numberDivsPerColumn){
             else if (str_ in numbers) {
                 number_index  = numbers.indexOf(str_);
                 letter = number_arrays[number_index];
-                console.log("number: "+str_+": "+str_)
+                //console.log("number: "+str_+": "+str_)
             }
 
             // Special
             else if (specials.indexOf(str_) >= 0) {
                 special_index  = specials.indexOf(str_);
                 letter = special_arrays[special_index];
-                console.log(letter);
-                console.log("special: "+str_+": "+str_)
+                //console.log(letter);
+                //console.log("special: "+str_+": "+str_)
             }
 
             // Lower case
             else if (this.lower_case(str_)){
-                console.log("string:",str_," is lowercase");
+                //console.log("string:",str_," is lowercase");
 
                 var lower_index = str_.charCodeAt(0) - 97;
                 if (lower_index < lower_case_arrays.length) {
@@ -207,7 +207,7 @@ function DrawEngine(numberDivsPerRow, numberDivsPerColumn){
             }
             // Upper Case
             else if (this.upper_case(str_)){
-                console.log("string:",str_," is upper case");
+                //console.log("string:",str_," is upper case");
                 var upper_index = str_.charCodeAt(0) - 65;
                 if (upper_index < upper_case_arrays.length) {
                     letter = upper_case_arrays[upper_index];
@@ -216,7 +216,7 @@ function DrawEngine(numberDivsPerRow, numberDivsPerColumn){
 
             else{
                 letter = false;
-                console.log("string:",str_," not handled. length:",str_.length,". str_ in specials:",(specials.indexOf(str_)>=0));
+                //console.log("string:",str_," not handled. length:",str_.length,". str_ in specials:",(specials.indexOf(str_)>=0));
             }
 
 

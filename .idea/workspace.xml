@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6ddd36b8-93c2-4619-896f-e1322fc47620" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/index.js" afterPath="$PROJECT_DIR$/index.js" />
       <change beforePath="$PROJECT_DIR$/public/js/drawOnDrawingArea.js" afterPath="$PROJECT_DIR$/public/js/drawOnDrawingArea.js" />
-      <change beforePath="$PROJECT_DIR$/views/pages/led_interface.ejs" afterPath="$PROJECT_DIR$/views/pages/led_interface.ejs" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -42,8 +39,8 @@
       <file leaf-file-name="drawOnDrawingArea.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/js/drawOnDrawingArea.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="381">
-              <caret line="180" column="31" lean-forward="false" selection-start-line="180" selection-start-column="31" selection-end-line="180" selection-end-column="31" />
+            <state relative-caret-position="498">
+              <caret line="218" column="18" lean-forward="false" selection-start-line="218" selection-start-column="18" selection-end-line="218" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -174,12 +171,12 @@
       <workItem from="1519661551973" duration="4555000" />
       <workItem from="1519711500766" duration="288000" />
       <workItem from="1519797144584" duration="1879000" />
-      <workItem from="1520126315362" duration="7938000" />
+      <workItem from="1520126315362" duration="8028000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22678000" />
+    <option name="totallyTimeSpent" value="22768000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1469" height="1028" extended-state="0" />
@@ -382,8 +379,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/drawOnDrawingArea.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="180" column="31" lean-forward="false" selection-start-line="180" selection-start-column="31" selection-end-line="180" selection-end-column="31" />
+        <state relative-caret-position="498">
+          <caret line="218" column="18" lean-forward="false" selection-start-line="218" selection-start-column="18" selection-end-line="218" selection-end-column="18" />
           <folding />
         </state>
       </provider>
