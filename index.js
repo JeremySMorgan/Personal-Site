@@ -51,9 +51,7 @@ app.get('/led_interface', function(request, response) {
 app.post('/send_post',function(request, response){
 
   console.log("/send_post called");
-  //console.log(request.body);
 
-    /*
     var data = querystring.stringify(request.body);
     var options = {
         host: 'led_interface.ngrok.io',
@@ -67,13 +65,13 @@ app.post('/send_post',function(request, response){
     var req = http.request(options, function(res) {
         res.setEncoding('utf8');
         res.on('data', function (chunk) {
-            //console.log("body: " + chunk);
+            console.log("rpi response: " + chunk+"\n");
         });
     });
     req.write(data);
-    req.end();*/
+    req.end();
 
-    response.send("OK")
+    response.send("OK");
 });
 
 app.listen(app.get('port'), function() {
