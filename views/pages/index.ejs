@@ -138,4 +138,38 @@
 
 </body>
 
+<script type="text/javascript">
+    var userip;
+</script>
+
+<script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script type="text/javascript" src="https://l2.io/ip.js?var=userip"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    var ip_ = userip;
+    (function(){
+        emailjs.init("user_SDtez5ebxuYGahbUiyHs7");
+    })();
+
+    $.getJSON('https://ipapi.co/'+ip_+'/json', function(data){
+        var city = data.city;
+        var region = data.region;
+        var country = data.country;
+        var currentdate = new Date()
+
+        var datetime = currentdate.getDate() + "/"
+            + (currentdate.getMonth()+1)  + "/"
+            + currentdate.getFullYear() + " @ "
+            + currentdate.getHours() + ":"
+            + currentdate.getMinutes() + ":"
+            + currentdate.getSeconds();
+
+        emailjs.send("user_email","website_view",{ip: ip_, city:city, region:region, country:country, date:datetime});
+    });
+
+
+</script>
+
+
 </html>
