@@ -15,6 +15,7 @@
     "express": "4.15.2",
     "http": "0.0.0",
     "https": "^1.0.0",
+    "pdfjs-dist": "^2.0.489",
     "querystring": "^0.2.0",
     "request": "^2.83.0"
   },

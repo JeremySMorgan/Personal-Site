@@ -31,6 +31,9 @@ app.get('/portfolio', function(request, response) {
 app.get('/portfolio/robosimian', function(request, response) {
   response.render('pages/robosimian');
 });
+app.get('/portfolio/a_robosimian', function(request, response) {
+  response.render('pages/a_robosimian');
+});
 app.get('/portfolio/quadrotor_controls', function(request, response) {
   response.render('pages/quadrotor_controls');
 });

@@ -9,9 +9,14 @@
 </head>
 
 <body class="stackedit">
-  <div class="stackedit__html"><h1 id="jpl-robosimian-quadruped-robot-gait-development">JPL Robosimian Quadruped Robot Gait Development</h1>
+  <div class="stackedit__html"><h1 id="jpl-robosimian-quadruped-robot-gait-development">Robosimian Walking Control</h1>
+
+    <p><small> Forward Gait</small></p>
+    <iframe width="560" height="315" class="embed-responsive-item" src="https://www.youtube.com/embed/-zQfwO5bXUQ"></iframe>
+    
+
 <h2 id="overview">Overview</h2>
-<p>This is a project to build a robust stable walking gait for <a href="https://www.jpl.nasa.gov/news/news.php?feature=4603">JPL’s Robosimian quadruped robot</a> to allow operators to control the robot in real time. This goal will be achieved by completing two main tasks:</p>
+<p>The scope of this project is to build a stable walking gait for <a href="https://www.jpl.nasa.gov/news/news.php?feature=4603">JPL’s Robosimian quadruped robot</a> to allow operators to control the robot in real time. This goal will be achieved by completing two main tasks:</p>
 <ol>
 <li>the creation of a stable forward and sideways gait, as well as a reset algorithm capable of maintaing stablility in all known input states.</li>
 <li>This optimization of the created model through machine learning techniques</li>
@@ -105,18 +110,8 @@
 </ul>
 <p>While computationally intensive a genetic approach is superior to a gradient/ neural network approach as the latter require a continuous cost function which does not currently exist, and would be very difficult, if not feasible at all, to create.</p>
 <p>I have been thinking about using genetic programming with a set of primitive robot motions (end affector translation, torso rotation, torso translation ) to develop new gaits which have not previously been considered. This is just daydreaming material at this point, although I believe the idea holds merit.</p>
-<h2 id="appendix">Appendix</h2>
-<p>Finished Forward Gait (ODE physics engine disabled)</p>
-<iframe width="560" height="315" class="embed-responsive-item" src="https://www.youtube.com/embed/s_KDVGaFGgs?rel=0"></iframe>
-<p>Turning Algorithm (ODE physics engine disabled)</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/XrthRcqI5jw" allowfullscreen=""></iframe>
-<p>Original Gaite ( non stable, ODE physics engine disabled)</p>
-<iframe width="560" height="315" class="embed-responsive-item" src="https://www.youtube.com/embed/yeAvKYfvZMc?rel=0"></iframe>
-<p>Reset Stage 1
-<img src="https://github.com/JeremySMorgan/robosimian-gait-development/blob/master/Media/torso_stage_1.png?raw=true" alt="Reset Stage 1"></p>
-<p>Reset Stage 2
-<img src="https://github.com/JeremySMorgan/robosimian-gait-development/blob/master/Media/reset_stage_2.png?raw=true" alt="Reset Stage 1"></p>
-<p>reset algorithm psuedo-code</p>
+
+<p>reset procedure</p>
 <pre class=" language-python"><code class="prism  language-python">
 let<span class="token punctuation">:</span>
 	B_t <span class="token operator">=</span> torso base state position
@@ -152,7 +147,7 @@ let<span class="token punctuation">:</span>
     back right to B_br
     shift torso to B_t
 </code></pre>
-<p>end affector range calculation psuedo-code</p>
+<p>end affector range calculation</p>
 <pre class=" language-python"><code class="prism  language-python">let<span class="token punctuation">:</span>
     S' <span class="token operator">=</span> the euclidean xy distance between a shoulder joint <span class="token operator">and</span> the center of the robot
     R' <span class="token operator">=</span> the maxiumum euclidean xy distance between a end affector <span class="token operator">and</span> shoulder joint<span class="token punctuation">.</span> This <span class="token keyword">is</span> given by<span class="token punctuation">:</span>
