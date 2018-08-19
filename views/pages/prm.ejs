@@ -11,90 +11,31 @@
 <body class="stackedit">
   <div class="stackedit__html"><h1 id="prm-motion-planning">PRM Motion Planning</h1>
 <h2 id="overview">Overview</h2>
-<p>This is a project to move a simulated 6 dimensional robotic arm through a crowded environment to a desired configuration by applying Dijkstra’s algorithm on a graph created by the Probabilistic Roadmap technique to create a viable path. The project was assigned as part of University of Pennsylvania’s  <a href="https://www.coursera.org/learn/robotics-motion-planning">Computational Motion Planning</a> online course. Supporting code can be found at my <a href="https://github.com/JeremySMorgan/Probabilistic-Roadmap-Configuration-Space-Navigation">github</a></p>
-<h2 id="program-runner">Program runner</h2>
-<p>This is the main script of the program. It first creates obstacles using <code>boxFV</code> and <code>appendFV</code>, calls the roadmap construction function, runs a dijkstra’s search on the resulting graph and animates the resulting path.</p>
-<h2 id="triangle-intersection-algorithm">Triangle Intersection Algorithm</h2>
-<p>This function determines if two triangles intersect. This method is used to determine if a proposed configuration space is valid, that is, the arm does not collide with any obstacles. This is done by breaking the arm joints and the obstacles into triangles and iterating through all of the arm triangles and obstacle triangles to see if there is an intersection.</p>
-<p>The algorithm works by checking to see if either triangle is inside one another. This counts as an intersection. This is done by checking to see if all three points of each triangle is inside the other triangle. This is done by applying the same side algorithm. See the appendix for pseudo-code</p>
-<p>We then test to see if any of the triangles segments intersect with any segments of the other triangle. This is done by iterating through all possible combinations of segments and applying the Line Intersection Algorithm to determine if the two segments intersect. See the appendix for pseudo-code</p>
-<h2 id="prm">PRM</h2>
-<p>PRM builds a ‘roadmap’ by iterating through the specified number of samples, getting a random sample in the free space, and finding the k nearest neighbors. For each of the k nearest configuration space points to the random point if the line between the two points does no intersect any obstacles then this point is added to the stored graph.</p>
-<p>See the appendix for supporting code</p>
-<h2 id="dijkstras-search">Dijkstra’s Search</h2>
-<p>Dijkstra’s algorithm guarantees the shortest path between two nodes on a graph and is used to find a path between the start and end configuration nodes on the PRM graph</p>
-<h2 id="notes">Notes</h2>
-<ul>
-<li>The GUI, obstacles and Dijkstra’s search implementation were provided by UPenn. I built the triangle intersection algorithm and the PRM generator. It is worth noting that I am able to build what was provided.</li>
-</ul>
-<h2 id="appendix">Appendix</h2>
+<p>Matlab program to navigate a 6 dof robotic arm through a crowded environment to a desired configuration. Uses the <a href="https://en.wikipedia.org/wiki/Probabilistic_roadmap">Probabilistic Roadmap</a>
+    algorithm for path planning. The project was assigned as part of University of Pennsylvania’s  <a href="https://www.coursera.org/learn/robotics-motion-planning">Computational Motion Planning</a> mooc. Supporting code can be found at my <a href="https://github.com/JeremySMorgan/Probabilistic-Roadmap-Configuration-Space-Navigation">github</a>.</p>
+
 <p>Animation
 <img src="https://github.com/JeremySMorgan/Probabilistic-Roadmap-Configuration-Space-Navigation/blob/master/prm_3.gif?raw=true" alt="neat gif"></p>
-<p>Line Intersection Algorithm (between (AB) and (CD))</p>
-<pre class=" language-matlab"><code class="prism  language-matlab"><span class="token comment" spellcheck="true">% * implies dot product</span>
-E <span class="token operator">=</span> B<span class="token operator">-</span>A <span class="token operator">=</span> <span class="token punctuation">(</span> Bx<span class="token operator">-</span>Ax<span class="token punctuation">,</span> By<span class="token operator">-</span>Ay <span class="token punctuation">)</span>
-F <span class="token operator">=</span> D<span class="token operator">-</span>C <span class="token operator">=</span> <span class="token punctuation">(</span> Dx<span class="token operator">-</span>Cx<span class="token punctuation">,</span> Dy<span class="token operator">-</span>Cy <span class="token punctuation">)</span> 
-P <span class="token operator">=</span> <span class="token punctuation">(</span> <span class="token operator">-</span>Ey<span class="token punctuation">,</span> Ex <span class="token punctuation">)</span>
-h <span class="token operator">=</span> <span class="token punctuation">(</span> <span class="token punctuation">(</span>A<span class="token operator">-</span>C<span class="token punctuation">)</span> <span class="token operator">*</span> P <span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token punctuation">(</span> F <span class="token operator">*</span> P <span class="token punctuation">)</span>
 
-<span class="token keyword">if</span> h <span class="token operator">=</span> <span class="token number">0</span> <span class="token operator">|</span> <span class="token number">1</span><span class="token punctuation">,</span> endpoints touch
-<span class="token keyword">if</span> <span class="token number">0</span><span class="token operator">&lt;</span>h<span class="token operator">&lt;</span><span class="token number">1</span><span class="token punctuation">,</span> lines intersect
-</code></pre>
-<p>Same Side Algorithm</p>
-<pre class=" language-matlab"><code class="prism  language-matlab"><span class="token comment" spellcheck="true">% * implies dot product</span>
-<span class="token keyword">function</span> <span class="token function">same_side</span><span class="token punctuation">(</span>p1<span class="token punctuation">,</span>p2<span class="token punctuation">,</span> a<span class="token punctuation">,</span>b<span class="token punctuation">)</span>
-    <span class="token comment" spellcheck="true">% determines if p1, p2 are on the same side of the segment defined by (ab)</span>
-    cp1 <span class="token operator">=</span> <span class="token function">cross</span><span class="token punctuation">(</span>b<span class="token operator">-</span>a<span class="token punctuation">,</span> p1<span class="token operator">-</span>a<span class="token punctuation">)</span>
-    cp2 <span class="token operator">=</span> <span class="token function">cross</span><span class="token punctuation">(</span>b<span class="token operator">-</span>a<span class="token punctuation">,</span> p2<span class="token operator">-</span>a<span class="token punctuation">)</span>
-    <span class="token keyword">if</span> cp1<span class="token operator">*</span>cp2 <span class="token operator">&gt;=</span> <span class="token number">0</span> <span class="token keyword">return</span> true
-    <span class="token keyword">return</span> false
-</code></pre>
-<p>Point In Triangle Algorithm</p>
-<pre class=" language-matlab"><code class="prism  language-matlab"><span class="token comment" spellcheck="true">% * implies dot product</span>
-<span class="token keyword">if</span> <span class="token function">same_side</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span>a<span class="token punctuation">,</span> b<span class="token punctuation">,</span>c<span class="token punctuation">)</span> and <span class="token function">same_side</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span>b<span class="token punctuation">,</span> a<span class="token punctuation">,</span>c<span class="token punctuation">)</span> and <span class="token function">same_side</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span>c<span class="token punctuation">,</span> a<span class="token punctuation">,</span>b<span class="token punctuation">)</span> <span class="token keyword">return</span> true
-    <span class="token keyword">return</span> false
-</code></pre>
-<p>PRM Matlab Code</p>
-<pre class=" language-matlab"><code class="prism  language-matlab">
-x <span class="token operator">=</span> <span class="token function">RandomSample</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
-<span class="token comment" spellcheck="true">% Array of random samples, each column corresponds to the coordinates</span>
-<span class="token comment" spellcheck="true">% of a point in configuration space.</span>
-samples <span class="token operator">=</span> <span class="token function">repmat</span><span class="token punctuation">(</span><span class="token function">x</span><span class="token punctuation">(</span><span class="token operator">:</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> nsamples<span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
- 
-<span class="token comment" spellcheck="true">% edges - an array with 2 rows each column has two integer entries (i, j) which encodes the fact that sample i and sample j are connected by an edge. For each </span>
-edges <span class="token operator">=</span> <span class="token function">zeros</span><span class="token punctuation">(</span>nsamples<span class="token operator">*</span>k<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-edge_lengths <span class="token operator">=</span> <span class="token function">zeros</span><span class="token punctuation">(</span>nsamples<span class="token operator">*</span>k<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
-<span class="token comment" spellcheck="true">% nedges - this integer keeps track of the number of edges we</span>
-<span class="token comment" spellcheck="true">% have in the graph so far</span>
-nedges <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
-<span class="token keyword">for</span> <span class="token number">i</span> <span class="token operator">=</span> <span class="token number">2</span><span class="token operator">:</span>nsamples
-    <span class="token comment" spellcheck="true">% Note that we are assuming that RandomSample returns a sample in</span>
-    <span class="token comment" spellcheck="true">% freespace</span>
-    x <span class="token operator">=</span> <span class="token function">RandomSample</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">samples</span><span class="token punctuation">(</span><span class="token operator">:</span><span class="token punctuation">,</span><span class="token number">i</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token function">x</span><span class="token punctuation">(</span><span class="token operator">:</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">% Find the nearest neighbors</span>
-    distances <span class="token operator">=</span> <span class="token function">Dist</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> <span class="token function">samples</span><span class="token punctuation">(</span><span class="token operator">:</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token operator">:</span><span class="token punctuation">(</span><span class="token number">i</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    length_n <span class="token operator">=</span> <span class="token function">length</span><span class="token punctuation">(</span>distances<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">[</span>sorted_distances<span class="token punctuation">,</span> index_distances<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">sort</span><span class="token punctuation">(</span>distances<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">for</span> ii <span class="token operator">=</span> <span class="token number">1</span><span class="token operator">:</span> <span class="token function">min</span><span class="token punctuation">(</span>k<span class="token punctuation">,</span> length_n<span class="token punctuation">)</span>
-        <span class="token number">j</span> <span class="token operator">=</span> <span class="token function">index_distances</span><span class="token punctuation">(</span>ii<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">LocalPlanner</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> <span class="token function">samples</span><span class="token punctuation">(</span><span class="token operator">:</span><span class="token punctuation">,</span><span class="token number">j</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-            nedges <span class="token operator">=</span> nedges <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token function">edges</span><span class="token punctuation">(</span>nedges<span class="token punctuation">,</span><span class="token operator">:</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token punctuation">[</span>length_n<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">j</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-            <span class="token function">edge_lengths</span><span class="token punctuation">(</span>nedges<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token function">sorted_distances</span><span class="token punctuation">(</span>ii<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">end</span>
-    <span class="token keyword">end</span>
-    <span class="token function">fprintf</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'nsamples = %d, nedges = %d\n'</span><span class="token punctuation">,</span> <span class="token number">i</span><span class="token punctuation">,</span> nedges<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">end</span>
-
-</code></pre>
 </div>
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
