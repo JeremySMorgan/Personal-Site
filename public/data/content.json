@@ -1,0 +1,50 @@
+{
+  "content": [
+    {"section_name": "Robotics/Big Projects", "data": [
+      { "title": "Autonomous Step Sequence and Motion Planner for Navigatation through Obstacle Filled Environments",
+        "subtitle": "Duke Univeristy - Intelligent Motion Laboratory ",
+        "date": "Jan - Aug 18'",
+        "link_name":"",
+        "link_url":"",
+        "thumbnail": "/images/a_rs_thumbnail.png",
+        "expanded_content_src": "/partials/a_robosimian.html"
+      },
+      { "title": "Robosimian Walking Control",
+        "subtitle": "Duke Univeristy - Intelligent Motion Laboratory ",
+        "date": "Jan - May 17'",
+        "link_name":"",
+        "link_url":"",
+        "thumbnail": "/images/walking_control_thumbnail.png",
+        "expanded_content_src": "/partials/walking_control.html"
+      }
+    ]},
+
+    {"section_name": "Hobby/Side Projects", "data": [
+      { "title": "Quadbot",
+        "subtitle": "",
+        "date": "December 2015",
+        "link_name":"Github",
+        "link_url":"https://github.com/JeremySMorgan/12dof-quadbot",
+        "thumbnail": "/images/quadbot.png",
+        "expanded_content_src": "/partials/quadbot.html"
+      },
+      { "title": "PRM Motion Planning",
+        "subtitle": "UPenn Computational Motion Planning Coursework ",
+        "date": "December 2015",
+        "link_name":"Github",
+        "link_url":"https://github.com/JeremySMorgan/12dof-quadbot",
+        "thumbnail": "/images/prm_config_space.png",
+        "expanded_content_src": "/partials/prm.html"
+      },
+      { "title": "Drawable LED Matrix",
+        "subtitle": "",
+        "date": "March 2018",
+        "link_name":"Github",
+        "link_url":"https://github.com/JeremySMorgan/LED-Matix-Web-Interface",
+        "thumbnail": "/images/led_matrix_thumb.png",
+        "expanded_content_src": "/partials/led_matrix.html"
+      }
+    ]}
+  ]
+}
+

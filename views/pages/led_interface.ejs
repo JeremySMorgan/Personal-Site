@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Light Matrix Interface </title>
+
+    <link rel="stylesheet" type="text/css" href="/plugins/bootstrap/bootstrap_for_led_interface.css">
+    <link rel="stylesheet" type="text/css" href="/css/led_interface.css">
+	<link rel="stylesheet" href="/plugins/colorpicker/colorpicker.css" type="text/css" />
+    <link rel="stylesheet" media="screen" type="text/css" href="/plugins/colorpicker/layout.css" />
+
+    <script src="/js/led_interface.js"></script>
+    <script type="text/javascript" src="/plugins/jquery/jquery.js"></script>
+	<script type="text/javascript" src="/plugins/colorpicker/colorpicker.js"></script>
+    <script type="text/javascript" src="/plugins/colorpicker/eye.js"></script>
+    <script type="text/javascript" src="/plugins/colorpicker/utils.js"></script>
+    <script type="text/javascript" src="/plugins/colorpicker/layout.js?ver=1.0.2"></script>
+
+    <script>
+        $(document).ready(function () {
+            led_size = 28
+            var box_width = led_size * 25;
+            var box_height = led_size * 25;
+            var div_width = (box_height / led_size);
+            var divHeight = (box_height / led_size);
+            var classNameDivs = "singleBox";
+            var idNameDrawingArea = "drawingArea";
+            var drawingAreaBorderColor = "black";
+            var drawingAreaBorderWidth = 1 + "px";
+            //Set width attribute of drawingArea
+            document.getElementById("drawingArea").style.width = box_width + "px";
+            document.getElementById("drawingArea").style.height = box_height + "px";
+            document.getElementById("drawingArea").style.border = drawingAreaBorderWidth + " solid " + drawingAreaBorderColor;
+            // Create the matrix
+            draw_box(box_width, box_height, div_width, divHeight, classNameDivs, idNameDrawingArea);
+            $('colorpickerHolder').ColorPicker({ flat: true });
+            var numberDivsPerRow = box_width / div_width;
+            var numberDivsPerColumn = box_height / divHeight;
+            drawing_engine = DrawEngineCreation(numberDivsPerRow, numberDivsPerColumn);
+
+            window.sendData = function () {
+                send_data(numberDivsPerRow, numberDivsPerColumn);
+            }
+        })
+        function clear_drawing_area(){
+            drawing_engine.clearDrawingArea()
+        }
+        function display_text(){
+            drawing_engine.display_text()
+        }
+
+    </script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <h1 id="headerText"> {light matrix interface} </h1>
+            <div id="drawingArea"></div>
+            <p id="colorpickerHolder"></p>
+
+        <div class="userControls">
+            <div class="userControlsInsideContainer">
+                <button onclick="display_text()"> DISPLAY TEXT</button><br><br>
+                <textarea id="user_text" type="text" name="fname"></textarea>
+            </div>
+        </div>
+
+                <div class="userControls">
+                    <div class="userControlsInsideContainer">
+                        <button onclick="clear_drawing_area()"> CLEAR DRAWING AREA</button>
+                        <br>
+                        <br>
+                        <button onclick="sendData()"> SEND DATA</button>
+                    </div>
+                </div>
+
+        </div>
+
+</body>
+</html>

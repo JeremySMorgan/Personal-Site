@@ -2,87 +2,15 @@
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="../../stylesheets/bootstrap.css">
-    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script> 
-    <title>Jeremy Morgan Personal Site</title>
 
-    <style media="screen">
-      html,
-      body {
-        height: 100%;
-      }
+  <title>Jeremy Morgan Personal Site</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="plugins/bootstrap/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
 
-      .jumbotron.vertical-center {
-        margin-bottom: 0;
-        /* Remove the default bottom margin of .jumbotron */
-      }
-
-      .vertical-center {
-        min-height: 100%;
-        /* Fallback for vh unit */
-        min-height: 100vh;
-        /* You might also want to use
-            /* Make it a flex container */
-        display: -webkit-box;
-        display: -moz-box;
-        display: -ms-flexbox;
-        display: -webkit-flex;
-        display: flex;
-        /* Align the bootstrap's container vertically */
-        -webkit-box-align: center;
-        -webkit-align-items: center;
-        -moz-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        /* In legacy web browsers such as Firefox 9
-            we need to specify the width of the flex container */
-        width: 100%;
-        /* Also 'margin: 0 auto' doesn't have any effect on flex items in such web browsers
-            hence the bootstrap's container won't be aligned to the center anymore.
-            Therefore, we should use the following declarations to get it centered again */
-        -webkit-box-pack: center;
-        -moz-box-pack: center;
-        -ms-flex-pack: center;
-        -webkit-justify-content: center;
-        justify-content: center;
-      }
-
-      .container {
-        /*background-color: gold;*/
-      }
-      /* visited link */
-
-      a:visited {
-        text-decoration: none;
-        text-decoration: none;
-      }
-      /* mouse over link */
-
-      a:hover {
-        text-decoration: none;
-      }
-      /* selected link */
-
-      a:active {
-        text-decoration: none;
-      }
-      /* visited link */
-
-      td a:visited {
-        text-decoration: none;
-        text-decoration: none;
-      }
-      /* mouse over link */
-
-      td a:hover {
-        text-decoration: none;
-      }
-      /* selected link */
-
-      td a:active {
-        text-decoration: none;
-      }
-    </style>
+  <script src="/plugins/jquery/jquery.js"></script>
+  <script type="text/javascript" src="/plugins/email/email.min.js"></script>
+  <script src="/js/main.js"></script>
 
 </head>
 
@@ -94,47 +22,79 @@
 -->
 
 <body>
-  <div class="jumbotron vertical-center">
-    <div class="container text-center">
-      <div class="row">
-        <div class="col-md-3 col-sm-2 text-center"></div>
-        <div class="col-md-6 col-sm-8">
-          <div href="#" class="thumbnail">
-            <img src="../../images/headshot.jpg" class="img-responsive" alt="">
-            <br>
-            My name is  <strong> Jeremy Morgan</strong>. I'm an undergraduate student at Duke University
-              pursueing a double major in Electrical Computer Engineering and Computer Science.
-               I am interested in robotics. My hobbies include rock climbing, yoga, beer 
-               and <a href="http://vsco.co/jeremysmorgan"> photography</a>. I also really like and Rick and Morty.
-          </div>
+
+<div class="container-fluid">
+
+  <div class="row">
+
+    <div class="col-md-4 col-sm-12">
+        <div href="#" class="thumbnail" style="font-size:1.1vw;">
+          <img src="../../images/headshot.jpg" class="img-responsive" alt="">
+          <br>
+          My name is <strong> Jeremy Morgan</strong>. I'm an undergraduate student at Duke University
+          pursueing a double major in Electrical Computer Engineering and Computer Science.
+          I am interested in robotics.I like rock climbing, yoga, beer
+          and <a href="http://vsco.co/jeremysmorgan"> photography</a>. And Rick and Morty.
+          <br><br>
+          <i>Contact/Links:</i>
           <div class="row">
             <div class="col-md-3">
-              <a href="/portfolio" target="_top">
-                <h2>Portfolio</h2>
-              </a>
-            </div>
-            <div class="col-md-3">
               <a href="mailto:jeremy.s.morgan@duke.edu" target="_top">
-               <h2>Email</h2> 
+                <h2 style="font-size:1.25vw;">Email</h2>
               </a>
             </div>
             <div class="col-md-3">
               <a href="https://www.linkedin.com/in/jeremy-morgan-457516111">
-                <h2>LinkedIn</h2>
+                <h2 style="font-size:1.25vw;">LinkedIn</h2>
               </a>
             </div>
             <div class="col-md-3">
               <a href="https://github.com/JeremySMorgan">
-                <h2>GitHub</h2>
+                <h2 style="font-size:1.25vw;">GitHub</h2>
               </a>
             </div>
           </div>
         </div>
-      </div>
-      
+    </div>
+
+    <div class="col-md-8 col-sm-12" id="collapsable_parent">
+
+      <!--<div class="row project_expandable">-->
+
+        <!--&lt;!&ndash;<h3>Side Projects</h3>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;<div class="expandable_header col-sm-12 col-md-12 col-lg-12">&ndash;&gt;-->
+          <!--&lt;!&ndash;<div class="row thumbnail header">&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="col-sm-3 col-md-3 col-lg-3">&ndash;&gt;-->
+              <!--&lt;!&ndash;<img src="/images/prm_config_space.png" class="expandable_img img-rounded img-responsive img-thumbnail">&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="col-sm-8 col-md-8 col-lg-8">&ndash;&gt;-->
+              <!--&lt;!&ndash;<h4 class="">PRM Motion Planning</h4>&ndash;&gt;-->
+              <!--&lt;!&ndash;<p>UPenn Computational Motion Planning Coursework</p>&ndash;&gt;-->
+              <!--&lt;!&ndash;<i>March 2018</i>&ndash;&gt;-->
+              <!--&lt;!&ndash;<a href="https://github.com/JeremySMorgan/12dof-quadbot">&ndash;&gt;-->
+                <!--&lt;!&ndash;<p>Github Link</p>&ndash;&gt;-->
+              <!--&lt;!&ndash;</a>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;<div class="expandable_content">&ndash;&gt;-->
+          <!--&lt;!&ndash;content&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+
+
+
+      <!--</div>-->
 
     </div>
+
   </div>
+
+
+
+</div>
 
 
 </body>
@@ -143,9 +103,7 @@
     var userip;
 </script>
 
-<script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
-<script type="text/javascript" src="https://l2.io/ip.js?var=userip"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<!--<script type="text/javascript" src="https://l2.io/ip.js?var=userip"></script>-->
 
 <script type="text/javascript">
   /*
