@@ -29,7 +29,6 @@ $(document).ready(function () {
 
         var coll = document.getElementsByClassName("collapsible");
         var i;
-
         for (i = 0; i < coll.length; i++) {
             coll[i].addEventListener("click", function() {
                 this.classList.toggle("active");
@@ -68,7 +67,7 @@ function get_section_entry_html(json){
         html += '<a href="'+json.link_url+'">';
         html += '<p>'+json.link_name+'</p></a>';
     }
-    html += '</div></div>';
+    html += '</div><button type="button" class="btn btn-warning btn-sm" style="position: absolute; right: 26px; bottom: 10px;"><small>click to expand</small></button></div>';
     return html;
 }
 
