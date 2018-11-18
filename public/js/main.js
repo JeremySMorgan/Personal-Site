@@ -1,7 +1,6 @@
 
 
 $(document).ready(function () {
-
     $.getJSON("/data/content.json", function(json) {
         collapsable_parent = $('#collapsable_parent');
 
