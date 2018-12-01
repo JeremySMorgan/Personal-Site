@@ -78,8 +78,8 @@ td a:active {
     background-color: #f1f1f1;
 }
 
-
-
+/*#map { position:absolute; top:.1em; bottom:.1em; width:90%; height:90%; }*/
+#map { position:absolute; top:.1em; bottom:.1em; left: .1em; right: 1em;  }
 
 
 

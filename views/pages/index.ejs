@@ -6,22 +6,24 @@
   <title>Jeremy Morgan Personal Site</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="plugins/bootstrap/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="plugins/mapbox/mapbox.css">
   <link rel="stylesheet" type="text/css" href="/css/main.css">
   <link rel="stylesheet" href="/plugins/katex/katex.min.css" >
 
   <script src="/plugins/jquery/jquery.js"></script>
+  <script src="/plugins/mapbox/mapbox.js"></script>
   <script type="text/javascript" src="/plugins/email/email.min.js"></script>
   <script defer src="/plugins/katex/katex.js"></script>
   <script src="/js/main.js"></script>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129358964-1"></script>
-  <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-129358964-1');
-  </script>
+  <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129358964-1"></script>-->
+  <!--<script>-->
+      <!--window.dataLayer = window.dataLayer || [];-->
+      <!--function gtag(){dataLayer.push(arguments);}-->
+      <!--gtag('js', new Date());-->
+      <!--gtag('config', 'UA-129358964-1');-->
+  <!--</script>-->
 
 </head>
 
@@ -38,45 +40,57 @@
 
   <div class="row">
 
-    <div class="col-md-6 col-sm-6 col-xs-10">
-        <div href="#" class="thumbnail">
-          <div class="row">
-            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-3"></div>
-            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-6">
-              <img src="../../images/headshot.jpg" class="img-responsive" alt="">
+    <div class="col-md-6 col-sm-6 col-xs-12">
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div href="#" class="thumbnail">
+            <div class="row">
+              <div class="col-xs-2 col-sm-2 col-md-2 col-lg-3"></div>
+              <div class="col-xs-8 col-sm-8 col-md-8 col-lg-6">
+                <img src="../../images/headshot.jpg" class="img-responsive" alt="">
+              </div>
+              <div class="col-xs-2 col-sm-2 col-md-2 col-lg-4"></div>
             </div>
-            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-4"></div>
-          </div>
-          <br>
-          <p class="text">
-            My name is <strong> Jeremy Morgan</strong>. I'm an undergraduate student at Duke University
-            pursueing a double major in Electrical Computer Engineering and Computer Science.
-            I am interested in robotics.I like rock climbing, yoga, beer
-            and <a href="http://vsco.co/jeremysmorgan"> photography</a>. And Rick and Morty.
-            <br><br>
-          </p>
-          <i>Contact/Links:</i>
-          <div class="row">
-            <div class="col-md-3">
-              <a href="mailto:jeremy.s.morgan@duke.edu" target="_top">
-                <h5>Email</h5>
-              </a>
-            </div>
-            <div class="col-md-3">
-              <a href="https://www.linkedin.com/in/jeremy-morgan-457516111">
-                <h5>LinkedIn</h5>
-              </a>
-            </div>
-            <div class="col-md-3">
-              <a href="https://github.com/JeremySMorgan">
-                <h5>GitHub</h5>
-              </a>
+            <br>
+            <p class="text">
+              My name is <strong> Jeremy Morgan</strong>. I'm an undergraduate student at Duke University pursueing a double major in Electrical Computer Engineering and Computer Science. I am interested in robotics. I like rock climbing, yoga, beer and <a href="http://vsco.co/jeremysmorgan"> photography</a>. And Rick and Morty.
+              <br><br>
+            </p>
+            <i>Contact/Links:</i>
+            <div class="row">
+              <div class="col-md-3">
+                <a href="mailto:jeremy.s.morgan@duke.edu" target="_top">
+                  <h5>Email</h5>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="https://www.linkedin.com/in/jeremy-morgan-457516111">
+                  <h5>LinkedIn</h5>
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="https://github.com/JeremySMorgan">
+                  <h5>GitHub</h5>
+                </a>
+              </div>
             </div>
           </div>
         </div>
+      </div>
+
     </div>
 
     <div class="col-md-6 col-sm-12" id="collapsable_parent">
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <h4 class="text-center"><u>Site Heatmap</u></h4>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+      <div style="height: 45em;"></div>
+      <div id='map' class="mapboxgl-map"></div>
     </div>
 
   </div>

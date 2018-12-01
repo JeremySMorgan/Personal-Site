@@ -36,13 +36,22 @@
         "thumbnail": "/images/prm_config_space.png",
         "expanded_content_src": "/partials/prm.html"
       },
-      { "title": "Drawable LED Matrix",
+      {
+        "title": "Drawable LED Matrix",
         "subtitle": "",
         "date": "March 2018",
-        "link_name":"Github",
-        "link_url":"https://github.com/JeremySMorgan/LED-Matix-Web-Interface",
+        "link_name": "Github",
+        "link_url": "https://github.com/JeremySMorgan/LED-Matix-Web-Interface",
         "thumbnail": "/images/led_matrix_thumb.png",
         "expanded_content_src": "/partials/led_matrix.html"
+      },
+      { "title": "Javascript Canvas Art",
+        "subtitle": "",
+        "date": "December 2014",
+        "link_name":"View",
+        "link_url":"/js_art",
+        "thumbnail": "/images/jsart_thumbnail.png",
+        "expanded_content_src": ""
       }
     ]}
   ]

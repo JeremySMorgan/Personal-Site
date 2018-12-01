@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="js art">
+    <meta name="author" content="Jeremy Morgan">
+    <title>Jeremy Morgan Personal Site</title>
+    <link href="/plugins/simple-sidebar/simple-sidebar.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/js_art.css" media="screen" title="no title" charset="utf-8">
+    <link href="/plugins/bootstrap/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="/plugins/nouislider/nouislider.css" media="screen" title="no title" charset="utf-8">
+
+    <link rel="stylesheet" href="/plugins/bootstrap/bootstrap-glyphicons.css">
+    <script src="/plugins/jquery/jquery.js"></script>
+    <script src="/plugins/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/plugins/nouislider/nouislider.js"></script>
+    <script type="text/javascript" src="/js/js_art.js"></script>
+
+</head>
+
+<body>
+
+    <div id="return_btn" style="text-align: center;">
+        <a href="/" class="link"><span class="text-center center-block glyphicon glyphicon-home" aria-hidden="true"></span></a>
+    </div>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav list-group">
+                <li class="list-group-item text-center"><p class="text">inner circle speed</p>
+                    <div type="range" id="pathTimeDelay" class="noUi-target noUi-ltr noUi-horizontal noUi-background"></div>
+                </li>
+                <li class="list-group-item text-center"><p class="text">outer circle speed</p>
+                    <div type="range" id="timeSmallCircleDelay"
+                         class="noUi-target noUi-ltr noUi-horizontal noUi-background"></div>
+                </li>
+                <li class="list-group-item text-center"><p class="text">segment length</p>
+                    <div type="range" id="radius" class="noUi-target noUi-ltr noUi-horizontal noUi-background"></div>
+                </li>
+
+                <li class="list-group-item text-center">
+                    <p class="text">inner circle radius</p>
+                    <div type="range" id="largeRadius" class="noUi-target noUi-ltr noUi-horizontal noUi-background"></div>
+                </li>
+
+                <li class="list-group-item text-center">
+                    <div class="row">
+                        <div class="col-xs-6 col-s-6 col-md-6 col-lg-6">
+                            <p class="text text-danger">r</p>
+                        </div>
+                        <div class="col-xs-6 col-s-6 col-md-6 col-lg-6">
+                            <input title="test" class="button btn-danger" type="checkbox" id="rChange">
+                        </div>
+                    </div>
+                </li>
+
+                <li class="list-group-item text-center">
+                    <div class="row">
+                        <div class="col-xs-6 col-s-6 col-md-6 col-lg-6">
+                            <p class="text text-success">g</p>
+                        </div>
+                        <div class="col-xs-6 col-s-6 col-md-6 col-lg-6">
+                            <input title="test" class="button btn-danger" type="checkbox" id="gChange">
+                        </div>
+                    </div>
+                </li>
+
+                <li class="list-group-item text-center">
+                    <div class="row">
+                        <div class="col-xs-6 col-s-6 col-md-6 col-lg-6">
+                            <p class="text text-primary">b</p>
+                        </div>
+                        <div class="col-xs-6 col-s-6 col-md-6 col-lg-6">
+                            <input title="test" class="button btn-danger" type="checkbox" id="bChange">
+                        </div>
+                    </div>
+                </li>
+
+                <li class="list-group-item text-center">
+                    <p class="text">bloop blop coefficient</p>
+                    <div type="range" id="xToCirclePathConstant"
+                         class="noUi-target noUi-ltr noUi-horizontal noUi-background"></div>
+                </li>
+
+                <li class="list-group-item text-center">
+                    <p class="text">meeseeks spawn rate</p>
+                    <div type="range" id="yTocirclePathConstant"
+                         class="noUi-target noUi-ltr noUi-horizontal noUi-background"></div>
+                </li>
+
+                <li class="list-group-item text-center">
+                    <p class="text">bing bong factor</p>
+                    <div type="range" id="xFromCirclePathConstant"
+                         class="noUi-target noUi-ltr noUi-horizontal noUi-background"></div>
+                </li>
+
+                <li class="list-group-item text-center">
+                    <p class="text">tim tam consumption</p>
+                    <div type="range" id="yFromcirclePathConstant"
+                         class="noUi-target noUi-ltr noUi-horizontal noUi-background"></div>
+                </li>
+
+                <li class="list-group-item text-center">
+                    <button id="start"><p class="text">resume</p></button>
+                    <button id="stop">
+                        <p class="text">pause</p></button>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <a href="#menu-toggle" class="btn btn-default" id="menu-toggle" class="text"><p class="text">options</p></a>
+                <canvas id="canvas"></canvas>
+
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+
+        setTimeout(function () {
+            $("#wrapper").toggleClass("toggled");
+        }, 1500);
+
+        function preventDefault(e) {
+            e = e || window.event;
+            if (e.preventDefault)
+                e.preventDefault();
+            e.returnValue = false;
+        }
+
+        function disableScroll() {
+            if (window.addEventListener) // older FF
+                window.addEventListener('DOMMouseScroll', preventDefault, false);
+            window.onwheel = preventDefault; // modern standard
+            window.onmousewheel = document.onmousewheel = preventDefault; // older browsers, IE
+            window.ontouchmove = preventDefault; // mobile
+            document.onkeydown = preventDefaultForScrollKeys;
+        }
+
+        function enableScroll() {
+            if (window.removeEventListener)
+                window.removeEventListener('DOMMouseScroll', preventDefault, false);
+            window.onmousewheel = document.onmousewheel = null;
+            window.onwheel = null;
+            window.ontouchmove = null;
+            document.onkeydown = null;
+        }
+
+    </script>
+
+</body>
+
+</html>
